@@ -29,11 +29,13 @@ $router->group(['prefix' => 'api'], function($router)
     
     $router->post('inquilino/remove/{id}','InquilinoController@deleteInquilino');
     
-    $router->post('inquilino/update/{id}','InquilinoController@updateInquilino');
+    //$router->post('inquilino/update/{id}','InquilinoController@updateInquilino');
 
     $router->get('users/all','InquilinoController@showAllUsers');
 }); 
 
-Route::get('inquilinoProfile', 'InquilinoController@inquilinoProfile');
+Route::get('inquilinoProfile/{username}', 'InquilinoController@inquilinoProfile');
+
+Route::post('edit', 'InquilinoController@updateInquilino');
 
 Route::get('users/{username}','InquilinoController@showUserByUsername');

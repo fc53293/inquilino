@@ -53,19 +53,22 @@
           <div class="row">
             <div class="col">
               <h1 class="pt-3 profile-container__welcomeUser">Welcome,</h1>
-              <h1 class="pb-3 profile-container__nameUser" id="nameUser">Admin</h1>
+              <h1 class="pb-3 profile-container__nameUser" id="nameUser">Nome</h1>
             </div>
           </div>
           <div class="row">
             <div class="col profile-container__information">
+
             @foreach ($data as $user)
-<!-- -->        <form action="">
+<!-- -->        <form action="/edit" method="POST">
+                  
+                  <input type="hidden" name="username" value="{{$user['Username']}}">
                   <div class="form-group row">
                     <label for="inputPassword" class="col-sm-2 col-form-label">
                       <h2 class="p-2">Username: </h2>
                     </label>
                     <div class="col-sm-3">
-                      <input type="text" class="form-control mt-2" id="inputPassword" value="{{ $user->Username }}">
+                      <input type="text" class="form-control mt-2" id="inputPassword" name="nomeUser" value="{{ $user['Username'] }}">
                     </div>
                   </div>
                   <div class="form-group row">
@@ -73,7 +76,7 @@
                       <h2 class="p-2">Email:</h2>
                     </label>
                     <div class="col-sm-3">
-                      <input type="text" class="form-control mt-2" id="inputPassword" placeholder="CHANGE ME!" value="{{ $user->Email }}"> 
+                      <input type="text" class="form-control mt-2" id="inputPassword" name="mail" placeholder="CHANGE ME!" value="{{ $user['Email'] }}"> 
                     </div>
                   </div>
                   <div class="form-group row">
@@ -81,7 +84,7 @@
                       <h2 class="p-2">Morada:</h2
                         ></label>
                     <div class="col-sm-3">
-                      <input type="text" class="form-control mt-2" id="inputPassword" placeholder="CHANGE ME!" value="{{ $user->Morada }}">
+                      <input type="text" class="form-control mt-2" id="inputPassword" placeholder="CHANGE ME!" value="{{ $user['Morada'] }}">
                     </div>
                   </div>
                   <div class="form-group row">
@@ -89,12 +92,13 @@
                       <h2 class="p-2">Data de Nascimento:</h2>
                     </label>
                     <div class="col-sm-3">
-                      <input type="text" class="form-control mt-2" id="inputPassword" placeholder="CHANGE ME!" value="{{ $user->Nascimento }}">
+                      <input type="text" class="form-control mt-2" id="inputPassword" placeholder="CHANGE ME!" value="{{ $user['Nascimento'] }}">
                     </div>
                   </div>
                   <button type="submit" class="m-2 btn btn-primary" >Make Changes!</button>
                 </form>
 <!-- -->  @endforeach
+
               <h2 class="mt-5 p-2 font-effect__blue">Recentes:</h2>
               <div class="row mx-2 text-center profile-container__recentViewed">
                 <div class="col m-1 recentViewed">

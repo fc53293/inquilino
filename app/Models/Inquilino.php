@@ -19,11 +19,8 @@ class Inquilino extends Model
      * @var array
      */
 
-    protected $table = 'inquilino';
-
-    //protected $fillable = ['email'];
-
-    //protected $timestamps=false;
-
-  
+    protected $table = 'utilizadores';
+    protected  $primaryKey = 'Username';
+    public $incrementing = false;
+    public $timestamps=false;
 }

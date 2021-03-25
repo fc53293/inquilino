@@ -62,30 +62,29 @@ class InquilinoController extends Controller
     }
 
     //Updates Inqilino
-    public function updateInquilino(Request $request, $id)
+    public function updateInquilino(Request $req)
     {
-        $inquilino = Inquilino::find($id);
-        $inquilino->email=$request->input('email');
-        $inquilino->save();
-
-        //retrun response()->json($property);
-        //return response()->json('Mostra um inquilino com esse id');
+        $data = Inquilino::find('goncalo');
+        $data->Username=$req->input('nomeUser');
+        $data->Email=$req->input('mail');
+        //$data->Morada=$req->input('Morada');
+        $data->save();
         
-        return response()->json($inquilino);
+        //return back()->withInput();
     }
 
     public function showAllUsers()
     {
-        $results = DB::table('utilizadores')->get();
+        $results = Inquilino::all();
   
         return response()->json($results);
 
     }
 
 
-    public function inquilinoProfile()
+    public function inquilinoProfile($username)
     {
-        $user = DB::table('utilizadores')->where('username','=' ,'goncalo')->get();
+        $user = Inquilino::where('username','=' ,$username)->get();
 
         return view('profile_user',['data'=>$user]);
     }
