@@ -62,15 +62,15 @@ class InquilinoController extends Controller
     }
 
     //Updates Inqilino
-    public function updateInquilino(Request $req)
+    public function updateInquilino(Request $req, $username)
     {
         $data = Inquilino::find('goncalo');
         $data->Username=$req->input('nomeUser');
         $data->Email=$req->input('mail');
-        //$data->Morada=$req->input('Morada');
+        $data->Morada=$req->input('morada');
         $data->save();
         
-        //return back()->withInput();
+        return response()->json('Updated successfully.');
     }
 
     public function showAllUsers()

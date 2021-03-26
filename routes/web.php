@@ -36,6 +36,6 @@ $router->group(['prefix' => 'api'], function($router)
 
 Route::get('inquilinoProfile/{username}', 'InquilinoController@inquilinoProfile');
 
-Route::post('edit', 'InquilinoController@updateInquilino');
+Route::post('edit/{username}', 'InquilinoController@updateInquilino');
 
 Route::get('users/{username}','InquilinoController@showUserByUsername');

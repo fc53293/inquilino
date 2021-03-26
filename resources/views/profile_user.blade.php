@@ -3,7 +3,7 @@
   <html lang="en">
   <meta charset="UTF-8">
   <meta name="author" content="UniRent">
-  <title>ADMIN | UniRent</title>
+  <title>User | UniRent</title>
   <link rel="shortcut icon" type="image/jpg" href="img/logo/UniRent-V2.png"/>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -60,7 +60,7 @@
             <div class="col profile-container__information">
 
             @foreach ($data as $user)
-<!-- -->        <form action="/edit" method="POST">
+<!-- -->        <form action="/edit/{{ $user['Username'] }}" method="POST">
                   
                   <input type="hidden" name="username" value="{{$user['Username']}}">
                   <div class="form-group row">
@@ -84,7 +84,7 @@
                       <h2 class="p-2">Morada:</h2
                         ></label>
                     <div class="col-sm-3">
-                      <input type="text" class="form-control mt-2" id="inputPassword" placeholder="CHANGE ME!" value="{{ $user['Morada'] }}">
+                      <input type="text" class="form-control mt-2" id="inputPassword" placeholder="CHANGE ME!" name="morada" value="{{ $user['Morada'] }}">
                     </div>
                   </div>
                   <div class="form-group row">
