@@ -5,6 +5,7 @@ use DB;
 use Spatie\QueryBuilder\QueryBuilder;
 
 use App\Models\Inquilino;
+use App\Models\Utilizador;
 use App\routes\web;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -60,19 +61,7 @@ class InquilinoController extends Controller
         
         return response()->json('Removed successfully.');
     }
-
-    //Updates Inqilino
-    public function updateInquilino(Request $req, $username)
-    {
-        $data = Inquilino::find('goncalo');
-        $data->Username=$req->input('nomeUser');
-        $data->Email=$req->input('mail');
-        $data->Morada=$req->input('morada');
-        $data->save();
-        
-        return response()->json('Updated successfully.');
-    }
-
+    
     public function showAllUsers()
     {
         $results = Inquilino::all();
@@ -81,15 +70,41 @@ class InquilinoController extends Controller
 
     }
 
+    //Updates Inqilino
+    public function updateInquilino(Request $req, $username)
+    {
+        $data = Inquilino::find('goncalo');
+        $data->Username=$req->input('nomeUser');
+        $data->PrimeiroNome=$req->input('primeiroNome');
+        $data->UltimoNome=$req->input('ultimoNome');
+        $data->Email=$req->input('mail');
+        $data->Morada=$req->input('morada');
+        $data->save();
+        
+        return response()->json('Updated successfully.');
+    }
 
     public function inquilinoProfile($username)
     {
-        $user = Inquilino::where('username','=' ,$username)->get();
+        $user = Utilizador::where('username','=' ,$username)->get();
 
         return view('profile_user',['data'=>$user]);
     }
 
-    
+    public function inquilinoAluguerInfo($username){
+        //$data = DB::table('Inquilino')
+          //      ->join('Propriedades','IdPropriedade', '=','inquilino.IdPropriedade')
+            //    ->select('Inquilino.IdInquilino', 'Inquilino.Username', 'Inquilino.IdPropriedade', 'Propriedades.TipoPropriedade', 'Propriedades.Localizacao')
+              //  ->get();
+
+        $data = Inquilino::join('Propriedades', 'Propriedades.IdPropriedade', '=', 'Inquilino.IdPropriedade')
+            ->where('Inquilino.Username', '=',$username)
+            ->select('Inquilino.IdInquilino', 'Inquilino.Username', 'Inquilino.IdPropriedade', 'Propriedades.TipoPropriedade', 'Propriedades.Localizacao')
+            ->get();
+
+        return response()->json($data);
+    }
+
 }
 
 

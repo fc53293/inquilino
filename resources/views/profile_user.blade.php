@@ -63,43 +63,58 @@
 <!-- -->        <form action="/edit/{{ $user['Username'] }}" method="POST">
                   
                   <input type="hidden" name="username" value="{{$user['Username']}}">
+
                   <div class="form-group row">
-                    <label for="inputPassword" class="col-sm-2 col-form-label">
-                      <h2 class="p-2">Username: </h2>
-                    </label>
-                    <div class="col-sm-3">
-                      <input type="text" class="form-control mt-2" id="inputPassword" name="nomeUser" value="{{ $user['Username'] }}">
+                    <div class="form-group col">
+                      <h2 class="p-2" >Username: </h2>
+                      <div class="col-sm-3">
+                        <input type="text" class="form-control mt-2" id="inputPassword" name="nomeUser" value="{{ $user['Username'] }}">
+                      </div>
+                    </div>
+
+                    <div class="form-group col">
+                      <h2 class="p-2">Primeiro Nome: </h2>
+                      <div class="col-sm-4">
+                        <input type="text" class="form-control mt-2" id="inputPassword" name="primeiroNome" value="{{ $user['PrimeiroNome'] }}">
+                      </div>
                     </div>
                   </div>
+
                   <div class="form-group row">
-                    <label for="inputPassword" class="col-sm-2 col-form-label">
+                    <div class="form-group col">
                       <h2 class="p-2">Email:</h2>
-                    </label>
-                    <div class="col-sm-3">
-                      <input type="text" class="form-control mt-2" id="inputPassword" name="mail" placeholder="CHANGE ME!" value="{{ $user['Email'] }}"> 
+                      <div class="col-sm-6">
+                        <input type="text" class="form-control mt-2" id="inputPassword" name="mail" placeholder="CHANGE ME!" value="{{ $user['Email'] }}"> 
+                      </div>
+                    </div>
+                    <div class="form-group col">
+                        <h2 class="p-2">Utimo Nome: </h2>
+                        <div class="col-sm-4">
+                          <input type="text" class="form-control mt-2" id="inputPassword" name="ultimoNome" value="{{ $user['UltimoNome'] }}">
+                        </div>
                     </div>
                   </div>
+
                   <div class="form-group row">
-                    <label for="inputPassword" class="col-sm-2 col-form-label">
-                      <h2 class="p-2">Morada:</h2
-                        ></label>
-                    <div class="col-sm-3">
-                      <input type="text" class="form-control mt-2" id="inputPassword" placeholder="CHANGE ME!" name="morada" value="{{ $user['Morada'] }}">
+                    <div class="form-group col">
+                      <h2 class="p-2">Morada:</h2>
+                      <div class="col-sm-6">
+                        <input type="text" class="form-control mt-2" id="inputPassword" placeholder="CHANGE ME!" name="morada" value="{{ $user['Morada'] }}">
+                      </div>
                     </div>
-                  </div>
-                  <div class="form-group row">
-                    <label for="inputPassword" class="col-sm-2 col-form-label">
+                    <div class="form-group col">
                       <h2 class="p-2">Data de Nascimento:</h2>
-                    </label>
-                    <div class="col-sm-3">
-                      <input type="text" class="form-control mt-2" id="inputPassword" placeholder="CHANGE ME!" value="{{ $user['Nascimento'] }}">
+                      <div class="col-sm-4">
+                        <input type="text" class="form-control mt-2" id="inputPassword" placeholder="CHANGE ME!" value="{{ $user['Nascimento'] }}">
+                      </div>
                     </div>
                   </div>
+
                   <button type="submit" class="m-2 btn btn-primary" >Make Changes!</button>
                 </form>
 <!-- -->  @endforeach
 
-              <h2 class="mt-5 p-2 font-effect__blue">Recentes:</h2>
+              <h2 class="mt-5 p-2 font-effect__blue">Alugueres:</h2>
               <div class="row mx-2 text-center profile-container__recentViewed">
                 <div class="col m-1 recentViewed">
                   <img class="m-3" src="img/logo/UniRent-V2.png" alt="" width="50">

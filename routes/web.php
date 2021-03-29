@@ -38,4 +38,6 @@ Route::get('inquilinoProfile/{username}', 'InquilinoController@inquilinoProfile'
 
 Route::post('edit/{username}', 'InquilinoController@updateInquilino');
 
+Route::get('testar/{username}', 'InquilinoController@inquilinoAluguerInfo');
+
 Route::get('users/{username}','InquilinoController@showUserByUsername');
