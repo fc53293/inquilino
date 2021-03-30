@@ -19,7 +19,7 @@
   <nav class="navbar fixed-top navbar-expand-lg navbar-dark p-md-3">
     <div class="container">
       <a class="navbar-brand" href="#">
-        <img src="img/logo/UniRent-V2.png" alt="" width="100">
+        <img src="/img/logo/UniRent-V2.png" alt="" width="100">
       </a>
       <button class="navbar-toggler bg-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -46,30 +46,51 @@
   <div class="banner-image w-100 vh-100 d-flex justify-content-center align-items-center">
     <div class="container profile-container"> 
       <div class="row">
-        <div class="col-4 profile-container__icon">
+        <!--<div class="col-4 profile-container__icon">
           <img class="m-3" src="img/logo/UniRent-V2.png" alt="" width="100">
-        </div>
+        </div>-->
+
+        <!-- Cartão do gajo-->
+        
+        <div class="col-12 col-sm-6 col-lg-3">
+            <div class="single_advisor_profile wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+              <!-- Team Thumb-->
+              <div class="advisor_thumb"><img src="/img/blankProfileImg.png" alt="img profile">
+                <!-- Social Info-->
+                <div class="social-info"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-linkedin"></i></a></div>
+              </div>
+              <!-- Team Details-->
+            @foreach ($data as $user)
+              <div class="single_advisor_details_info">
+                <h6>{{ $user['PrimeiroNome'] }} {{ $user['UltimoNome'] }}</h6>
+                <p class="designation">{{ $user['TipoConta'] }}</p>
+              </div>
+            </div>
+          </div>
+
         <div class="col-8">
           <div class="row">
             <div class="col">
-              <h1 class="pt-3 profile-container__welcomeUser">Welcome,</h1>
-              <h1 class="pb-3 profile-container__nameUser" id="nameUser">Nome</h1>
+            
+              <h1 class="pt-3 profile-container__welcomeUser">Welcome, {{ $user['PrimeiroNome'] }}</h1>
+            @endforeach
             </div>
           </div>
           <div class="row">
-            <div class="col profile-container__information">
+          <div class="col profile-container__information">
 
             @foreach ($data as $user)
-<!-- -->        <form action="/edit/{{ $user['Username'] }}" method="POST">
+              <form action="/edit/{{ $user['Username'] }}" method="POST">
                   
                   <input type="hidden" name="username" value="{{$user['Username']}}">
 
                   <div class="form-group row">
                     <div class="form-group col">
                       <h2 class="p-2" >Username: </h2>
-                      <div class="col-sm-3">
+                      <div class="col-sm-3 ">
                         <input type="text" class="form-control mt-2" id="inputPassword" name="nomeUser" value="{{ $user['Username'] }}">
                       </div>
+                      
                     </div>
 
                     <div class="form-group col">
@@ -110,25 +131,61 @@
                     </div>
                   </div>
 
-                  <button type="submit" class="m-2 btn btn-primary" >Make Changes!</button>
+                  <button type="submit" class="m-2 btn btn-primary " >Make Changes!</button>
                 </form>
-<!-- -->  @endforeach
+            @endforeach
 
               <h2 class="mt-5 p-2 font-effect__blue">Alugueres:</h2>
-              <div class="row mx-2 text-center profile-container__recentViewed">
-                <div class="col m-1 recentViewed">
-                  <img class="m-3" src="img/logo/UniRent-V2.png" alt="" width="50">
-                  <h3>Localidade Propriedade</h3>
+              @foreach ($rent as $rentData)
+                <!--<div class="row mx-2 text-center profile-container__recentViewed">
+                  <div class="col m-1 recentViewed">
+                    <img class="m-3" src="img/logo/UniRent-V2.png" alt="" width="50">
+                    <h3>{{ $rentData['Localizacao'] }}</h3>
+                    <h3>{{ $rentData['TipoPropriedade'] }}</h3>
+                  </div>
+                  <div class="col m-1 recentViewed">
+                    <img class="m-3 recentViewed__image" src="img/logo/UniRent-V2.png" alt="" width="50">
+                    <h3>Localidade Propriedade</h3>
+                  </div>
+                  <div class="col m-1 recentViewed">
+                    <img class="m-3 recentViewed__image" src="img/logo/UniRent-V2.png" alt="" width="50">
+                    <h3>Localidade Propriedade</h3>
+                  </div>
+                </div>-->
+                <div class="card text-center">
+                  <div class="card-header">
+                  <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                      <a class="nav-link active" data-bs-toggle="tab" href="#home">Information</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" data-bs-toggle="tab" href="#profile">Map</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" data-bs-toggle="tab" href="#contact">Contact</a>
+                    </li>
+                  </ul>
+                  </div>
+
+                  <div class="card-body">
+                    <div class="tab-content" id="myTabContent">
+                      <div class="tab-pane active" id="home" >
+                      <h3 >Tipo: {{ $rentData['TipoPropriedade'] }}</h3>                       
+                      <h3>Localização: {{ $rentData['Localizacao'] }}</h3>
+                      <h3>Area: {{ $rentData['AreaMetros'] }} m2</h3>
+                      </div>
+  
+                      
+                      <div class="tab-pane fade" id="profile" >
+                        <h3>Aqui vai aparecer o mapa!</h3>
+                        
+                      </div>
+                      <div class="tab-pane fade" id="contact">...</div>
+                    </div>
+                  </div>
+
                 </div>
-                <div class="col m-1 recentViewed">
-                  <img class="m-3 recentViewed__image" src="img/logo/UniRent-V2.png" alt="" width="50">
-                  <h3>Localidade Propriedade</h3>
-                </div>
-                <div class="col m-1 recentViewed">
-                  <img class="m-3 recentViewed__image" src="img/logo/UniRent-V2.png" alt="" width="50">
-                  <h3>Localidade Propriedade</h3>
-                </div>
-              </div>
+                @endforeach
             </div> 
           </div>
         </div>

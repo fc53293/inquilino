@@ -88,7 +88,12 @@ class InquilinoController extends Controller
     {
         $user = Utilizador::where('username','=' ,$username)->get();
 
-        return view('profile_user',['data'=>$user]);
+        $rentInfo = Inquilino::join('Propriedades', 'Propriedades.IdPropriedade', '=', 'Inquilino.IdPropriedade')
+            ->where('Inquilino.Username', '=',$username)
+            ->select('Inquilino.IdInquilino', 'Inquilino.Username', 'Inquilino.IdPropriedade', 'Propriedades.TipoPropriedade', 'Propriedades.Localizacao','Propriedades.AreaMetros')
+            ->get();
+
+        return view('profile_user',['data'=>$user],['rent'=>$rentInfo]);
     }
 
     public function inquilinoAluguerInfo($username){
@@ -99,7 +104,7 @@ class InquilinoController extends Controller
 
         $data = Inquilino::join('Propriedades', 'Propriedades.IdPropriedade', '=', 'Inquilino.IdPropriedade')
             ->where('Inquilino.Username', '=',$username)
-            ->select('Inquilino.IdInquilino', 'Inquilino.Username', 'Inquilino.IdPropriedade', 'Propriedades.TipoPropriedade', 'Propriedades.Localizacao')
+            ->select('Inquilino.IdInquilino', 'Inquilino.Username', 'Inquilino.IdPropriedade', 'Propriedades.TipoPropriedade', 'Propriedades.Localizacao','Propriedades.AreaMetros')
             ->get();
 
         return response()->json($data);
