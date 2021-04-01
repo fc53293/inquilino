@@ -24,6 +24,7 @@ $app = new Laravel\Lumen\Application(
 );
 
 $app->withFacades();
+//$app->withFacades(true, ['FarhanWazir\GoogleMaps\Facades\GMapsFacade' => 'GMaps']);
 
 $app->withEloquent();
 
@@ -90,7 +91,7 @@ $app->configure('app');
 | totally optional, so you are not required to uncomment this line.
 |
 */
-
+//$app->register(FarhanWazir\GoogleMaps\GMapsServiceProvider::class);
 // $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
