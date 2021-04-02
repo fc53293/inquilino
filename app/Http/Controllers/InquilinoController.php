@@ -34,7 +34,7 @@ class InquilinoController extends Controller
     {
         $inquilino = Inquilino::all();
         //$inquilino = $this->model->all();
-
+        
         return response()->json($inquilino);
         
         //return response()->json('Mostra todas os inquilinos');
