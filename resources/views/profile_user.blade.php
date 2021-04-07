@@ -211,12 +211,9 @@
                           <h3>Area: {{ $rentData['AreaMetros'] }} m2</h3>
                         </div>-->
                                     </div>
-
-
                                     <div class="tab-pane fade" id="profile">
                                         <h3>Aqui vai aparecer o mapa!</h3>
                                         >>>>>>> Stashed changes
-
                                     </div>
                                     <div class="tab-pane fade" id="contact">...</div>
                                 </div>
