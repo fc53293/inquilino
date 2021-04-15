@@ -61,9 +61,9 @@
                         <!-- Contact Us Form -->
                         <form action="#" id="form" method="post" name="form">
                             <img id="close" src="/img/closeButton.png" onclick ="div_hide()">
-                            <h2>Amount</h2>
-                            <hr>
-                            <input id="name" name="name" placeholder="Name" type="text">
+                            <h1>Amount</h1>
+                            
+                            <input id="name" name="name" placeholder="Amount" type="number">
                             <br><br><br>
 
                             <a href="javascript:%20check_empty()" id="submit">Add</a>

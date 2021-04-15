@@ -107,7 +107,7 @@ $app->configure('app');
 |
 */
 
-$app->register(Illuminate\Database\Eloquent\LegacyFactoryServiceProvider::class);
+//$app->register(Illuminate\Database\Eloquent\LegacyFactoryServiceProvider::class);
 
 
 $app->router->group(['namespace' => 'App\Http\Controllers',], function ($router) {

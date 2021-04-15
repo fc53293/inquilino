@@ -267,9 +267,9 @@ h3 {
 /************/
 /* Wallet Style */
 .wallet-container {
-	background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjOvSperRYjHH9-EHlKZJBfwvXy4rJpyerzHQsnp8DuuycYU5_);
+  background-color: rgb(232 242 251);
 		width: 320px;
-		color: #fff;
+		color: rgb(0, 0, 0);
 		font-size: 15px;
 		padding: 20px 20px 0;
 		top: 55%;
@@ -368,7 +368,7 @@ h3 {
   left:0;
   display:none;
   position:fixed;
-  background-color:#313131;
+  background-color:rgb(232 242 251);
   overflow:auto
   }
 
@@ -387,7 +387,7 @@ h3 {
     margin-left:-202px;
     font-family:'Raleway',sans-serif
     }
-    form {
+    #form {
     max-width:300px;
     min-width:250px;
     padding:10px 50px;
@@ -396,26 +396,18 @@ h3 {
     font-family:raleway;
     background-color:#fff
     }
-    p {
-    margin-top:30px
-    }
-    h2 {
-    background-color:#FEFFED;
-    padding:20px 35px;
-    margin:-10px -50px;
-    text-align:center;
-    border-radius:10px 10px 0 0
-    }
+ 
     hr {
     margin:10px -50px;
     border:0;
     border-top:1px solid #ccc
     }
-    input[type=text] {
+    
+    #form input[type=text] {
     width:82%;
     padding:10px;
     margin-top:30px;
-    border:1px solid #ccc;
+    border:1px solid rgb(14, 9, 9);
     padding-left:40px;
     font-size:16px;
     font-family:raleway
