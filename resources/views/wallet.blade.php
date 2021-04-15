@@ -18,6 +18,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
     </script>
+    <script src="/js/scripts.js"></script>
 </head>
 
 <body>
@@ -36,7 +37,7 @@
             </div>
 
             <div class="btn-group text-center">
-                <button type="button" class="btn btn-outline-light">Add Money</button>
+                <button type="button" class="btn btn-outline-light" onclick="div_show()">Add Money</button>
                 </div>
 
                 <div class="txn-history">
@@ -53,7 +54,24 @@
                 <div class="footer-menu">
                  
                 </div>
-            </div>
+
+                <div id="abc">
+                    <!-- Popup Div Starts Here -->
+                    <div id="popupContact">
+                        <!-- Contact Us Form -->
+                        <form action="#" id="form" method="post" name="form">
+                            <img id="close" src="/img/closeButton.png" onclick ="div_hide()">
+                            <h2>Amount</h2>
+                            <hr>
+                            <input id="name" name="name" placeholder="Name" type="text">
+                            <br><br><br>
+
+                            <a href="javascript:%20check_empty()" id="submit">Add</a>
+                        </form>
+                        </div>
+                        <!-- Popup Div Ends Here -->
+                    </div>
+                </div>
             @endforeach
         </div>
     </div>

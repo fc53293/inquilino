@@ -16,7 +16,7 @@
 */
 
 $router->get('/', function (){
-    return view('profile_user');
+    return view('home');
 });
 
 //$router->get('/', function () use ($router) {
