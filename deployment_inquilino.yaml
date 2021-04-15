@@ -15,7 +15,7 @@ spec:
     spec:
         containers:
           - name: microInquilino
-            image: gcr.io/projetoptiptr-307918/microInquilino:v1
+            image: gcr.io/projetoptiptr-307918/microinquilino:v1
 
 --- 
 #Service
