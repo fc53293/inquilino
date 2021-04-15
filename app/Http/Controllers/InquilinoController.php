@@ -84,6 +84,7 @@ class InquilinoController extends Controller
         return response()->json('Updated successfully.');
     }
 
+    //Vai buscar os dados para o perfil do Inqilino
     public function inquilinoProfile($username)
     {
         $user = Utilizador::where('username','=' ,$username)->get();
@@ -108,6 +109,23 @@ class InquilinoController extends Controller
             ->get();
 
         return response()->json($data);
+    }
+
+    //Adiciona uma quantidade de saldo ao saldo atual do inquilino
+    public function addSaldo($username, $amount){
+        $user = Utilizador::where('username','=' ,$username)->get();
+        
+        $values = array('Saldo' => ($user->Saldo)+$amount);
+        DB::table('users')->insert($values);
+    }
+
+    //Apresenta a pagina da wallet desse inquilino
+    public function showWallet($username)
+    {
+        $user = Utilizador::where('username','=' ,$username)->get();
+
+
+        return view('wallet',['data'=>$user]);
     }
 
 }

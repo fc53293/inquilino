@@ -15,9 +15,13 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
+$router->get('/', function (){
+    return view('profile_user');
 });
+
+//$router->get('/', function () use ($router) {
+  //  return $router->app->version();
+//});
 
 $router->group(['prefix' => 'api'], function($router)
 {
@@ -35,6 +39,10 @@ $router->group(['prefix' => 'api'], function($router)
 }); 
 
 Route::get('inquilinoProfile/{username}', 'InquilinoController@inquilinoProfile');
+
+Route::get('wallet/{username}', 'InquilinoController@showWallet');
+
+
 
 Route::post('edit/{username}', 'InquilinoController@updateInquilino');
 
