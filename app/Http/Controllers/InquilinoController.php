@@ -73,7 +73,7 @@ class InquilinoController extends Controller
     //Updates Inqilino
     public function updateInquilino(Request $req, $username)
     {
-        $data = Inquilino::find('goncalo');
+        $data = Utilizador::find($username);
         $data->Username=$req->input('nomeUser');
         $data->PrimeiroNome=$req->input('primeiroNome');
         $data->UltimoNome=$req->input('ultimoNome');
@@ -112,18 +112,20 @@ class InquilinoController extends Controller
     }
 
     //Adiciona uma quantidade de saldo ao saldo atual do inquilino
-    public function addSaldo($username, $amount){
-        $user = Utilizador::where('username','=' ,$username)->get();
-        
-        $values = array('Saldo' => ($user->Saldo)+$amount);
-        DB::table('users')->insert($values);
+    public function addSaldo($username, Request $amount){
+        $user = Utilizador::find($username);
+        $user->Saldo=$amount->input('amountToAdd')+$user->Saldo;
+        $user->save();
+        //$values = array('Username'=>$user->Username,'Email'=>$user->Email,'Password'=>$user->Password,
+        //'PrimeiroNome'=>$user->PrimeiroNome,'UltimoNome'=>$user->UltimoNome,'Nacionalidade'=>$user->Nacionalidade,'Nascimento'=>$user->Nascimento,
+        //'Morada'=>$user->Morada,'Telefone'=>$user->Telefone,'TipoConta'=>$user->TipoConta,'Saldo' => (int)($user->Saldo)+1);
+        //DB::table('Utilizadores')->insert($values);
     }
 
     //Apresenta a pagina da wallet desse inquilino
     public function showWallet($username)
     {
         $user = Utilizador::where('username','=' ,$username)->get();
-
 
         return view('wallet',['data'=>$user]);
     }

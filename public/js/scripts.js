@@ -1,4 +1,5 @@
 // POP UP Wallet
+
 function check_empty() {
     if (document.getElementById('name').value == "" || document.getElementById('email').value == "" || document.getElementById('msg').value == "") {
     alert("Fill All Fields !");
@@ -15,3 +16,9 @@ function check_empty() {
     function div_hide(){
     document.getElementById('abc').style.display = "none";
     }
+
+    $(document).ready(function(){
+        $('#submitWallet').click(function(){
+            check_empty();
+        });
+      });

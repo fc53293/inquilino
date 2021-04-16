@@ -30,12 +30,14 @@
             <div class="wallet-container text-center">
             <p class="page-title"><i class="fa fa-align-left"></i>MyUniRent wallet<i class="fa fa-user"></i></p>
             @foreach ($data as $info)
+            
             <div class="amount-box text-center">
                 <img src="https://lh3.googleusercontent.com/ohLHGNvMvQjOcmRpL4rjS3YQlcpO0D_80jJpJ-QA7-fQln9p3n7BAnqu3mxQ6kI4Sw" alt="wallet">
                 <p>Total Balance</p>
                 <p class="amount">{{ $info['Saldo'] }} €</p>
+               
             </div>
-
+            
             <div class="btn-group text-center">
                 <button type="button" class="btn btn-outline-light" onclick="div_show()">Add Money</button>
                 </div>
@@ -59,14 +61,15 @@
                     <!-- Popup Div Starts Here -->
                     <div id="popupContact">
                         <!-- Contact Us Form -->
-                        <form action="#" id="form" method="post" name="form">
+                        <form action="/walletAdd/{{ $info['Username'] }}" id="form" method="post" name="form">
                             <img id="close" src="/img/closeButton.png" onclick ="div_hide()">
                             <h1>Amount</h1>
                             
-                            <input id="name" name="name" placeholder="Amount" type="number">
+                            <input id="name" name="amountToAdd" placeholder="Amount" type="number" require>
                             <br><br><br>
 
-                            <a href="javascript:%20check_empty()" id="submit">Add</a>
+                            <!--<a href="javascript:%20check_empty()" id="submit" >Add</a>-->
+                            <button id="submitWallet" type="submit" name="sub" href="javascript:%20check_empty()">Add</button>
                         </form>
                         </div>
                         <!-- Popup Div Ends Here -->

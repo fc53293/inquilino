@@ -42,9 +42,11 @@ Route::get('inquilinoProfile/{username}', 'InquilinoController@inquilinoProfile'
 
 Route::get('wallet/{username}', 'InquilinoController@showWallet');
 
-
-
 Route::post('edit/{username}', 'InquilinoController@updateInquilino');
+
+Route::post('walletAdd/{username}', 'InquilinoController@addSaldo');
+
+
 
 Route::get('testar/{username}', 'InquilinoController@inquilinoAluguerInfo');
 

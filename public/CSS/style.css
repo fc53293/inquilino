@@ -437,14 +437,14 @@ h3 {
     font-family:raleway;
     margin-bottom:30px
     }
-    #submit {
+    #submitWallet {
     text-decoration:none;
     width:100%;
     text-align:center;
     display:block;
-    background-color:#00eeff;
+    background-color:#cfe8ff;
     color:#fff;
-    border:1px solid #00eeff;
+    border:1px solid #cfe8ff;
     padding:10px 0;
     font-size:20px;
     cursor:pointer;
