@@ -26,7 +26,7 @@
 
     <!-- Profile -->
     <div class="banner-image w-100 vh-100 d-flex justify-content-center align-items-center pt-5 ">
-        <div class="container profile-container">
+        <div >
             <div class="wallet-container text-center">
             <p class="page-title"><i class="fa fa-align-left"></i>MyUniRent wallet<i class="fa fa-user"></i></p>
             @foreach ($data as $info)
