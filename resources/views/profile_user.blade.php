@@ -37,7 +37,16 @@
                         <a class="nav-link text-black text-end" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-black text-end" href="login.html">Sign In</a>
+                        <a class="nav-link text-black text-end" href="#">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-black text-end" href="#">Search</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-black text-end" href="#">Wallet</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-black text-end" href="#">Payments</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-black text-end" href="register.html">Sign Up</a>
@@ -172,30 +181,52 @@
                                     </ul>
                                 </div>
 
-                  <div class="card-body">
-                    <div class="tab-content" id="myTabContent">
-                      <div class="tab-pane active" id="home" >
-                        <img class="img-thumbnail" src="/img/room1.jpg" alt="img profile" style="float:right" width="200" height="100">
-                        <!--<div class="d-inline-flex p-2">-->
-                        <div class="d-flex flex-column">
-                          <div class="p-2"><h3 >Tipo: {{ $rentData['TipoPropriedade'] }}</h3> </div>
-                          <div class="p-2"><h3>Localização: {{ $rentData['Localizacao'] }}</h3></div>
-                          <div class="p-2"><h3>Area: {{ $rentData['AreaMetros'] }} m2</h3></div>
-                        </div>
-                          <!--<h3 >Tipo: {{ $rentData['TipoPropriedade'] }}</h3>                       
+                                <<<<<<< Updated upstream <div class="card-body">
+                                    <div class="tab-content" id="myTabContent">
+                                        <div class="tab-pane active" id="home">
+                                            <h3>Tipo: {{ $rentData['TipoPropriedade'] }}</h3>
+                                            <h3>Localização: {{ $rentData['Localizacao'] }}</h3>
+                                            <h3>Area: {{ $rentData['AreaMetros'] }} m2</h3>
+                                        </div>
+
+
+                                        <div class="tab-pane fade" id="profile">
+                                            <h3>Aqui vai aparecer o mapa!</h3>
+
+                                        </div>
+                                        <div class="tab-pane fade" id="contact">...</div>
+                                    </div>
+                            </div>
+                            =======
+                            <div class="card-body">
+                                <div class="tab-content" id="myTabContent">
+                                    <div class="tab-pane active" id="home">
+                                        <img class="img-thumbnail" src="/img/room1.jpg" alt="img profile"
+                                            style="float:right" width="200" height="100">
+                                        <!--<div class="d-inline-flex p-2">-->
+                                        <div class="d-flex flex-column">
+                                            <div class="p-2">
+                                                <h3>Tipo: {{ $rentData['TipoPropriedade'] }}</h3>
+                                            </div>
+                                            <div class="p-2">
+                                                <h3>Localização: {{ $rentData['Localizacao'] }}</h3>
+                                            </div>
+                                            <div class="p-2">
+                                                <h3>Area: {{ $rentData['AreaMetros'] }} m2</h3>
+                                            </div>
+                                        </div>
+                                        <!--<h3 >Tipo: {{ $rentData['TipoPropriedade'] }}</h3>                       
                           <h3>Localização: {{ $rentData['Localizacao'] }}</h3>
                           <h3>Area: {{ $rentData['AreaMetros'] }} m2</h3>
                         </div>-->
-                      </div>
-  
-                      
-                      <div class="tab-pane fade" id="profile" >
-                        <h3>Aqui vai aparecer o mapa!</h3>
-                        
-                      </div>
-                      <div class="tab-pane fade" id="contact">...</div>
-                    </div>
-                  </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="profile">
+                                        <h3>Aqui vai aparecer o mapa!</h3>
+                                        >>>>>>> Stashed changes
+                                    </div>
+                                    <div class="tab-pane fade" id="contact">...</div>
+                                </div>
+                            </div>
 
                         </div>
                         @endforeach
