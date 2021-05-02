@@ -6,6 +6,7 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 use App\Models\Inquilino;
 use App\Models\Utilizador;
+use App\Models\Pagamento;
 use App\routes\web;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -85,12 +86,12 @@ class InquilinoController extends Controller
     }
 
     //Vai buscar os dados para o perfil do Inqilino
-    public function inquilinoProfile($username)
+    public function inquilinoProfile($id)
     {
-        $user = Utilizador::where('username','=' ,$username)->get();
+        $user = Utilizador::where('IdUser','=' ,$id)->get();
 
         $rentInfo = Inquilino::join('Propriedades', 'Propriedades.IdPropriedade', '=', 'Inquilino.IdPropriedade')
-            ->where('Inquilino.Username', '=',$username)
+            ->where('Inquilino.IdUser', '=',$id)
             ->select('Inquilino.IdInquilino', 'Inquilino.Username', 'Inquilino.IdPropriedade', 'Propriedades.TipoPropriedade', 'Propriedades.Localizacao','Propriedades.AreaMetros')
             ->get();
 
@@ -123,12 +124,40 @@ class InquilinoController extends Controller
     }
 
     //Apresenta a pagina da wallet desse inquilino
-    public function showWallet($username)
+    public function showWallet($id)
     {
-        $user = Utilizador::where('username','=' ,$username)->get();
+        $user = Utilizador::where('IdUser','=',$id)->get();
 
         return view('wallet',['data'=>$user]);
     }
+
+        //Apresenta a pagina dos pagamentos
+        public function showPaymentPage()
+        {
+            //$user = Utilizador::where('username','=' ,$username)->get();
+    
+            return view('rentPayments');
+        }
+
+        //Faz pagamentos
+        public function makePayment(Request $request)
+        {
+            $user = new Pagamento();
+            //$user->IdPagamento=1;
+            $user->IdInquilino=1;
+            $user->IdSenhorio=2;
+            $user->Valor=$request->Valor;
+            $user->Data=$request->Data;
+            $user->Contribuinte=$request->Contribuinte;
+            $user->save();
+            // $data = array('IdPagamento' =>1,'IdInquilino' => 1, 'IdSenhorio' => 2, 'Valor' => 400, 'Data' => '2021-04-05 20:26:02', 'Contribuinte' => "222222222");
+            // Pagamento::create($data);  
+
+
+            return response()->json("va1");
+
+        }
+        
 
 }
 

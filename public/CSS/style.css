@@ -455,3 +455,115 @@ h3 {
     color:red;
     font-weight:700
     }
+
+
+    /* PAGINA PAGAMENTOS */
+
+    /**************/
+/*** CUSTOM ***/
+/**************/
+.banner-image {
+  background: rgba(0, 133, 255, 0.19);
+  mix-blend-mode: normal;
+}
+
+.blue-font {
+  color: var(--main-dark-blue) !important;
+  font-weight: bold;
+  font-size: 70px !important;
+}
+
+#forgot-psswd {
+  text-transform: lowercase !important;
+  color: black !important;
+  text-decoration: underline !important;
+  -webkit-text-decoration-color: #219aea !important;
+          text-decoration-color: #219aea !important;
+}
+
+.btn-host {
+  border: 1px solid #1890ff !important;
+  -webkit-box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.25) !important;
+          box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.25) !important;
+  border-radius: 9px !important;
+  font-weight: 500 !important;
+  color: var(--main-dark-blue) !important;
+}
+
+.btn-host:hover {
+  -webkit-transform: translateY(-3px);
+          transform: translateY(-3px);
+}
+
+.profile-container {
+  margin: 35px !important;
+  padding: 15px !important;
+  border-radius: 10px !important;
+  background-color: #f8f8f89c !important;
+  -webkit-box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.05) !important;
+          box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.05) !important;
+}
+
+.profile-container__information {
+  margin-right: 20px;
+  margin-bottom: 5px;
+  padding: 15px !important;
+  border-radius: 10px !important;
+  background-color: white !important;
+  -webkit-box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.05) !important;
+          box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.05) !important;
+}
+
+.recentViewed {
+  margin-left: 15px !important;
+  margin-right: 15px !important;
+  padding: 15px !important;
+  border-radius: 10px !important;
+  background-color: #f8f8f89c !important;
+  -webkit-box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.05) !important;
+          box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.05) !important;
+}
+
+.recentViewed__image {
+  border-radius: 10px !important;
+}
+
+.font-effect__blue {
+  text-decoration: underline !important;
+  -webkit-text-decoration-color: #219aea !important;
+          text-decoration-color: #219aea !important;
+  text-decoration-thickness: 0.125em !important;
+  text-underline-offset: 1.5px !important;
+}
+/*# sourceMappingURL=style.css.map */
+.payment{
+  background-color:white;
+  width: 500px;
+  height: 520px;
+  border: 1px solid #e4e2e5;
+}
+.form_content{
+  text-align: left;
+}
+label{
+  padding: 15px;
+  padding-left: 20px;
+}
+.formAmountInput{
+  position: relative;
+  left: 45px;
+  border-radius: 5px;
+}
+.formInput{
+  width: 450px;
+  position: relative;
+  left: 20px;
+  border-radius: 5px;
+}
+.formbttn{
+  position: relative;
+  top: 30px;
+  border-radius: 5px;
+  background-color:turquoise;
+  width: 450px;
+}

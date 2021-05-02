@@ -38,13 +38,17 @@ $router->group(['prefix' => 'api'], function($router)
     $router->get('users/all','InquilinoController@showAllUsers');
 }); 
 
-Route::get('inquilinoProfile/{username}', 'InquilinoController@inquilinoProfile');
+Route::get('inquilinoProfile/{id}', 'InquilinoController@inquilinoProfile');
 
-Route::get('wallet/{username}', 'InquilinoController@showWallet');
+Route::get('wallet/{id}', 'InquilinoController@showWallet');
+
+Route::get('payment', 'InquilinoController@showPaymentPage');
 
 Route::post('edit/{username}', 'InquilinoController@updateInquilino');
 
 Route::post('walletAdd/{username}', 'InquilinoController@addSaldo');
+
+Route::post('pay', 'InquilinoController@makePayment');
 
 
 

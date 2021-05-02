@@ -9,8 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Lumen\Auth\Authorizable;
 
-
-class Inquilino extends Model 
+class Pagamento extends Model 
 {
     //use Authenticatable, Authorizable, HasFactory;
 
@@ -20,8 +19,8 @@ class Inquilino extends Model
      * @var array
      */
 
-    protected $table = 'inquilino';
-    protected  $primaryKey = 'IdInquilino';
+    protected $table = 'pagamentos';
+    protected  $primaryKey = 'IdPagamento';
     public $incrementing = true;
     public $timestamps=false;
 }

@@ -34,13 +34,22 @@
                 <div class="mx-auto"></div>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link text-black text-end" href="#">Home</a>
+                        <a class="nav-link text-black text-end" href="">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-black text-end" href="login.html">Sign In</a>
+                        <a class="nav-link text-black text-end" href="{{ url('inquilinoProfile/{id}') }}">Profile</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-black text-end" href="register.html">Sign Up</a>
+                        <a class="nav-link text-black text-end" href="#">Search</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-black text-end" href="{{ url('wallet/{id}') }}">Wallet</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-black text-end" href="{{ url('payment') }}">Payments</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-black text-end" href="#">Sign Out</a>
                     </li>
                 </ul>
             </div>

@@ -22,7 +22,39 @@
 </head>
 
 <body>
-
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark p-md-3">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img src="img/logo/UniRent-V2.png" alt="" width="100">
+      </a>
+      <button class="navbar-toggler bg-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="mx-auto"></div>
+        <ul class="navbar-nav">
+        <li class="nav-item">
+                        <a class="nav-link text-black text-end" href="">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-black text-end" href="{{ url('inquilinoProfile/{id}') }}">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-black text-end" href="#">Search</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-black text-end" href="{{ url('wallet/{id}') }}">Wallet</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-black text-end" href="{{ url('payment') }}">Payments</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-black text-end" href="#">Sign Out</a>
+                    </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
     <!-- Profile -->
     <div class="banner-image w-100 vh-100 d-flex justify-content-center align-items-center pt-5 ">
