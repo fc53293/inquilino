@@ -90,10 +90,10 @@
                     <!-- Popup Div Starts Here -->
                     <div id="popupContact">
                         <!-- Contact Us Form -->
-                        <form action="/walletAdd/{{ $info['IdUser'] }}" onsubmit="return check_empty()" id="form" method="post" name="form">
+                        <form action="/walletAdd/{{ $info['IdUser'] }}" id="form" method="post" name="form">
                             <img id="close" src="/img/closeButton.png" onclick ="div_hide()">
                             <h1>Amount</h1>
-                            <input id="name2" name="nameUser" placeholder="Amount" type="hidden" value="{{ $info['Username'] }}">
+                            <input id="name" name="nameUser" placeholder="Amount" type="hidden" value="{{ $info['Username'] }}">
                             <input id="name" name="amountToAdd" placeholder="Amount" type="number" require>
                             <br><br><br>
 
@@ -110,5 +110,4 @@
 
     <!-- END Profile -->
     @endforeach
-    
 </body>

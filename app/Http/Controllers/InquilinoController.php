@@ -124,15 +124,12 @@ class InquilinoController extends Controller
         $user->save();
 
         $histSaldo = new HistoricoSaldo();
-        //$user->IdSaldo=1;
+        $user->IdSaldo=1;
         $histSaldo->IdUser=$id;
         $histSaldo->Username=$amount->input('nameUser');
         $histSaldo->Valor=$amount->input('amountToAdd');
         $histSaldo->Data=Carbon::now();
         $histSaldo->save();
-
-        
-        
     }
 
     //Apresenta a pagina da wallet desse inquilino
