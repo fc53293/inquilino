@@ -1,11 +1,12 @@
 // POP UP Wallet
 
 function check_empty() {
-    if (document.getElementById('name').value == "" || document.getElementById('email').value == "" || document.getElementById('msg').value == "") {
-    alert("Fill All Fields !");
-    } else {
-    document.getElementById('form').submit();
-    alert("Form Submitted Successfully...");
+    if (document.getElementById('name').value == "") {
+        
+        alert("Fill All Fields !");
+        return false;
+    }else {
+        return true;
     }
     }
     //Function To Display Popup
@@ -17,8 +18,8 @@ function check_empty() {
     document.getElementById('abc').style.display = "none";
     }
 
-    $(document).ready(function(){
-        $('#submitWallet').click(function(){
-            check_empty();
-        });
-      });
+    // $(document).ready(function(){
+    //     $('#submitWallet').click(function(){
+    //         check_empty();
+    //     });
+    //   });

@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 use DB;
+use Auth;
 use Spatie\QueryBuilder\QueryBuilder;
 
 use App\Models\Inquilino;
 use App\Models\Utilizador;
 use App\Models\Pagamento;
+use App\Models\HistoricoSaldo;
 use App\routes\web;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+Use Carbon\Carbon;
 
 class InquilinoController extends Controller
 {
@@ -86,8 +89,10 @@ class InquilinoController extends Controller
     }
 
     //Vai buscar os dados para o perfil do Inqilino
-    public function inquilinoProfile($id)
+    public function inquilinoProfile(Request $request , $id)
     {
+        //$request->session()->put('key', 'value');
+
         $user = Utilizador::where('IdUser','=' ,$id)->get();
 
         $rentInfo = Inquilino::join('Propriedades', 'Propriedades.IdPropriedade', '=', 'Inquilino.IdPropriedade')
@@ -113,14 +118,21 @@ class InquilinoController extends Controller
     }
 
     //Adiciona uma quantidade de saldo ao saldo atual do inquilino
-    public function addSaldo($username, Request $amount){
-        $user = Utilizador::find($username);
+    public function addSaldo($id, Request $amount){
+        $user = Utilizador::find($id);
         $user->Saldo=$amount->input('amountToAdd')+$user->Saldo;
         $user->save();
-        //$values = array('Username'=>$user->Username,'Email'=>$user->Email,'Password'=>$user->Password,
-        //'PrimeiroNome'=>$user->PrimeiroNome,'UltimoNome'=>$user->UltimoNome,'Nacionalidade'=>$user->Nacionalidade,'Nascimento'=>$user->Nascimento,
-        //'Morada'=>$user->Morada,'Telefone'=>$user->Telefone,'TipoConta'=>$user->TipoConta,'Saldo' => (int)($user->Saldo)+1);
-        //DB::table('Utilizadores')->insert($values);
+
+        $histSaldo = new HistoricoSaldo();
+        //$user->IdSaldo=1;
+        $histSaldo->IdUser=$id;
+        $histSaldo->Username=$amount->input('nameUser');
+        $histSaldo->Valor=$amount->input('amountToAdd');
+        $histSaldo->Data=Carbon::now();
+        $histSaldo->save();
+
+        
+        
     }
 
     //Apresenta a pagina da wallet desse inquilino
@@ -128,37 +140,46 @@ class InquilinoController extends Controller
     {
         $user = Utilizador::where('IdUser','=',$id)->get();
 
-        return view('wallet',['data'=>$user]);
+        $userHist = HistoricoSaldo::where('IdUser','=',$id)->orderBy('IdSaldo', 'desc')->limit(4)->get();
+
+        return view('wallet',['data'=>$user],['data2'=>$userHist]);
     }
 
-        //Apresenta a pagina dos pagamentos
-        public function showPaymentPage()
-        {
-            //$user = Utilizador::where('username','=' ,$username)->get();
+    //Apresenta a pagina dos pagamentos
+    public function showPaymentPage()
+    {
+        //$user = Utilizador::where('username','=' ,$username)->get();
+
+        return view('rentPayments');
+    }
+
+    //Faz pagamentos
+    public function makePayment(Request $request)
+    {
+        $user = new Pagamento();
+        //$user->IdPagamento=1;
+        $user->IdInquilino=1;
+        $user->IdSenhorio=2;
+        $user->Valor=$request->Valor;
+        $user->Data=$request->Data;
+        $user->Contribuinte=$request->Contribuinte;
+        $user->save();
+        // $data = array('IdPagamento' =>1,'IdInquilino' => 1, 'IdSenhorio' => 2, 'Valor' => 400, 'Data' => '2021-04-05 20:26:02', 'Contribuinte' => "222222222");
+        // Pagamento::create($data);  
+
+
+        return response()->json("va1");
+
+    }
     
-            return view('rentPayments');
-        }
 
-        //Faz pagamentos
-        public function makePayment(Request $request)
-        {
-            $user = new Pagamento();
-            //$user->IdPagamento=1;
-            $user->IdInquilino=1;
-            $user->IdSenhorio=2;
-            $user->Valor=$request->Valor;
-            $user->Data=$request->Data;
-            $user->Contribuinte=$request->Contribuinte;
-            $user->save();
-            // $data = array('IdPagamento' =>1,'IdInquilino' => 1, 'IdSenhorio' => 2, 'Valor' => 400, 'Data' => '2021-04-05 20:26:02', 'Contribuinte' => "222222222");
-            // Pagamento::create($data);  
+    //Vai para a home page
+    public function goHome()
+    {
+        //$user = Utilizador::where('username','=' ,$username)->get();
 
-
-            return response()->json("va1");
-
-        }
-        
-
+        return view('home');
+    }
 }
 
 
