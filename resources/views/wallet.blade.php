@@ -76,13 +76,10 @@
 
                 <div class="txn-history">
                     <p><b>History</b></p>
-                    <p class="txn-list">Payment to xyz shop<span class="debit-amount">-$100</span></p>
+                    @foreach($data2 as $info)
+                        <p class="txn-list">Payment to xyz shop<span class="{{ $info->Valor >= 0 ? 'credit-amount' : 'debit-amount' }}">{{ $info['Valor'] }} €</span></p>
 
-                    <p class="txn-list">Payment to abc shop<span class="debit-amount">-$150</span></p>
-
-                    <p class="txn-list">Credit From abc ltd<span class="credit-amount">+$300</span></p>
-
-                    <p class="txn-list">Transfer From John Doe<span class="credit-amount">+$100</span></p>
+                    @endforeach
                 </div>
 
                 <div class="footer-menu">
@@ -93,10 +90,10 @@
                     <!-- Popup Div Starts Here -->
                     <div id="popupContact">
                         <!-- Contact Us Form -->
-                        <form action="/walletAdd/{{ $info['Username'] }}" id="form" method="post" name="form">
+                        <form action="/walletAdd/{{ $info['IdUser'] }}" id="form" method="post" name="form">
                             <img id="close" src="/img/closeButton.png" onclick ="div_hide()">
                             <h1>Amount</h1>
-                            
+                            <input id="name" name="nameUser" placeholder="Amount" type="hidden" value="{{ $info['Username'] }}">
                             <input id="name" name="amountToAdd" placeholder="Amount" type="number" require>
                             <br><br><br>
 
@@ -107,8 +104,10 @@
                         <!-- Popup Div Ends Here -->
                     </div>
                 </div>
-            @endforeach
+            
         </div>
     </div>
+
     <!-- END Profile -->
+    @endforeach
 </body>

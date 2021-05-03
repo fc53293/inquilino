@@ -106,7 +106,7 @@ $(document).ready(function(){
       },
       cache: false,
       success: function (data) {
-        alert("Pagamento feito");
+        window.location = "inquilinoProfile/1";  //Mudar para entrar no user atual
       }
   })
   });

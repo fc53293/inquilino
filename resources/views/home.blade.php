@@ -24,11 +24,64 @@
 <body>
 
 
-    <!-- Profile -->
-    <div class="banner-image w-100 vh-100 d-flex justify-content-center align-items-center pt-5 ">
-        <div class="container profile-container">
-            <h1>Home page</h1>
-        </div>
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark p-md-3">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        
+      </a>
+      <button class="navbar-toggler bg-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="mx-auto"></div>
+        <ul class="navbar-nav">
+        <li class="nav-item">
+                        <a class="nav-link text-black text-end" href="">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-black text-end" href="{{ url('inquilinoProfile/{id}') }}">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-black text-end" href="#">Search</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-black text-end" href="{{ url('wallet/{id}') }}">Wallet</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-black text-end" href="{{ url('payment') }}">Payments</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-black text-end" href="#">Sign Out</a>
+                    </li>
+        </ul>
+      </div>
     </div>
-    <!-- END Profile -->
+  </nav>
+  <!-- END Nav bar -->
+  
+  <!-- Banner -->
+  <div class="banner-image w-100 vh-100 d-flex justify-content-center align-items-center">
+    <div class="content text-center">
+	<img src="img/logo/UniRent-V2.png" alt="uni rent logo" style="width: 230px;padding-bottom: 40px;" >
+      <p class="homeTitle"><b>Your new life stars here </b></p>
+		<p style="padding-bottom: 20px;">1,000+ Students across 4,000+ Colleges use UniRent</p>
+      <form action="#">
+		  <input class="date" type="date">
+		  <input class="date" type="text">
+      </form>
+    </div>
+	</div>
+	<!-- END Banner -->
+	
+	<!-- Comments -->
+<div class="commentsSection">
+	<div class="gridComments">
+		<div class="gridItem"><img src="img/utilizador.png" class="utilizadorImg" alt="utilizador"><h1>Review <br> bla bla bla bla</h1> <br> <p>Maria Rodrigues, 21, Lisboa </p></div>
+		<div class="gridItem"><img src="img/utilizador.png" class="utilizadorImg" alt="utilizador"><h1>Review <br> bla bla bla bla</h1> <br> <p>Maria Rodrigues, 21, Lisboa </p></div>
+		<div class="gridItem"><img src="img/utilizador.png" class="utilizadorImg" alt="utilizador"><h1>Review <br> bla bla bla bla</h1> <br> <p>Maria Rodrigues, 21, Lisboa </p></div>
+		<div class="gridItem"><img src="img/utilizador.png" class="utilizadorImg" alt="utilizador"><h1>Review <br> bla bla bla bla</h1> <br> <p>Maria Rodrigues, 21, Lisboa </p></div>
+	</div>
+</div>
+	<!-- END Comments -->
+	
 </body>

@@ -16,6 +16,7 @@
 */
 
 $router->get('/', function (){
+    //session()->put('Name','Gony');
     return view('home');
 });
 
@@ -38,19 +39,25 @@ $router->group(['prefix' => 'api'], function($router)
     $router->get('users/all','InquilinoController@showAllUsers');
 }); 
 
-Route::get('inquilinoProfile/{id}', 'InquilinoController@inquilinoProfile');
 
-Route::get('wallet/{id}', 'InquilinoController@showWallet');
+// Routes BACANOS
+Route::group(['prefix' => ''], function () {
 
-Route::get('payment', 'InquilinoController@showPaymentPage');
+  Route::get('home', 'InquilinoController@goHome');
 
-Route::post('edit/{username}', 'InquilinoController@updateInquilino');
+  Route::get('inquilinoProfile/{id}', 'InquilinoController@inquilinoProfile');
 
-Route::post('walletAdd/{username}', 'InquilinoController@addSaldo');
+  Route::get('wallet/{id}', 'InquilinoController@showWallet');
 
-Route::post('pay', 'InquilinoController@makePayment');
+  Route::get('payment', 'InquilinoController@showPaymentPage');
 
+  Route::post('edit/{username}', 'InquilinoController@updateInquilino');
 
+  Route::post('walletAdd/{id}', 'InquilinoController@addSaldo');
+
+  Route::post('pay', 'InquilinoController@makePayment');
+
+});
 
 Route::get('testar/{username}', 'InquilinoController@inquilinoAluguerInfo');
 
