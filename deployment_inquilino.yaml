@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: microinquilino-deployment
   namespace: default
+  labels: 
+    app: microinquilino
 spec:
   selector:
     matchLabels:
@@ -16,13 +18,17 @@ spec:
         containers:
           - name: microinquilino
             image: gcr.io/projetoptiptr-307918/microinquilino:v1
+          - containerPort: 8081
+
 
 --- 
 #Service
 apiVersion: v1
 kind: Service
 metadata:
-  name: microinquilino-deployment
+  name: microinquilino-service
+  labels:
+    app: microinquilino
 spec:
   selector:
     app: microinquilino
@@ -30,3 +36,4 @@ spec:
   ports:
     - name: http
       port: 8081
+      targetPort: 8081

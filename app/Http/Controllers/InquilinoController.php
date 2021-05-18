@@ -8,6 +8,9 @@ use Spatie\QueryBuilder\QueryBuilder;
 use App\Models\Inquilino;
 use App\Models\Utilizador;
 use App\Models\Pagamento;
+use App\Models\Likes;
+use App\Models\Rating;
+use App\Models\Propriedade;
 use App\Models\HistoricoSaldo;
 use App\routes\web;
 use App\Http\Controllers\Controller;
@@ -130,6 +133,9 @@ class InquilinoController extends Controller
         $histSaldo->Valor=$amount->input('amountToAdd');
         $histSaldo->Data=Carbon::now();
         $histSaldo->save();
+
+        return response()->json(['res'=>$user->Saldo]);
+
     }
 
     //Apresenta a pagina da wallet desse inquilino
@@ -176,6 +182,113 @@ class InquilinoController extends Controller
         //$user = Utilizador::where('username','=' ,$username)->get();
 
         return view('home');
+    }
+
+    //Guardar a imagem de perfil
+    public function storeProfileImg(Request $req)
+    {
+        //Methods we can use on Request
+        //guessExtension()
+        //getMimeType()
+        //store()
+        //asStore()
+        //storePublicly()
+        //move
+        //getClientOriginalName()
+        //getClientMimeType()
+        //guessClientExtension()
+
+        //dd($req->all());
+        $this->validate($req,[
+            'imgProfile' => 'required|mimes:jpg,png,jpeg,|max:5048'
+        ]);
+        $file = $req->imgProfile->getClientOriginalName();
+        $fileName = pathinfo($file,PATHINFO_FILENAME);
+
+        $newImgName = time() . '-' . $fileName . '.' . 
+        $req->imgProfile->extension();
+
+        $req->imgProfile->move('img',$newImgName);
+
+        $user = Utilizador::find(1);
+        $user->imagem=$newImgName;
+        $user->save();
+    }
+
+    public function propertyInfo($id)
+    {
+        $property = Propriedade::where('IdPropriedade', $id)->get();
+        $ratingGiven = Rating::where('IdPropriedade', $id)->where('IdUser',1)->get();
+        $avgStar = Rating::where('IdPropriedade', $id)->avg('Rating');
+
+
+        //return response()->json($avgStar);
+        return view('propInfo',compact('property','ratingGiven','avgStar'));
+    }
+
+    public function findPropriedade(Request $request)
+    {
+        //$user = Utilizador::where('username','=' ,$username)->where('TipoConta','=' ,'Interessado')->get();
+        $dataLike = Likes::where('IdUser','=' ,1)->get();
+        //$search_data2 = $_GET['query'];
+        $search_data1 = $request->input('tipoProp');
+        $search_data2 = $request->input('query2');
+        $search_data3 = $request->input('areaMetros');
+        $search_data4 = $request->input('lprice');
+        $search_data5 = $request->input('nquartos');
+        $search_data6 = $request->input('oriSolar1');
+        //$search_data7 = $request->input('oriSolar2');
+
+        $proprerties = Propriedade::where('Localizacao', 'LIKE', '%'.$search_data2.'%');
+        if (!$search_data1 && !$search_data2 && !$search_data3 && !$search_data4){
+            $proprerties = Propriedade::where('Localizacao', 'LIKE', '%'.$search_data2.'%');
+        }
+        //dd($search_data4);
+        if ($search_data1){
+            $proprerties = Propriedade::where('TipoPropriedade', 'LIKE', '%'.$search_data1.'%');
+
+        }
+
+        if ($search_data2){
+            $proprerties = $proprerties->where('Localizacao', 'LIKE', '%'.$search_data2.'%');
+
+        }
+
+        if ($search_data4){
+            $proprerties = $proprerties->where('Preco', '<',(int)$search_data4);
+
+        }
+
+        if ($search_data5){
+            $proprerties = $proprerties->where('NumeroQuartos',(int)$search_data5);
+
+        }
+
+        if ($search_data6){
+            //dd($search_data6);
+            $proprerties = $proprerties->where('OrientacaoSolar',$search_data6);
+
+        }
+
+
+        // else if ($search_data3 == ""){
+        //     $proprerties = Propriedade::where('TipoPropriedade', 'LIKE', '%'.$search_data1.'%')
+        //     ->where('Localizacao', 'LIKE', '%'.$search_data2.'%')
+        //     //->where('AreaMetros', '<',(int)$search_data3)
+        //     //->where('Preco', '<',(int)$search_data4)
+        //     ->paginate(1);
+        // }
+        // else{
+        //     $proprerties = Propriedade::where('TipoPropriedade', 'LIKE', '%'.$search_data1.'%')
+        //     ->where('Localizacao', 'LIKE', '%'.$search_data2.'%')
+        //     ->where('AreaMetros', '<',(int)$search_data3)
+        //     ->where('Preco', '<',(int)$search_data4)
+        //     ->get();
+        // }
+        //$proprerties->appends($request->all());
+        $proprerties = $proprerties->where('Disponibilidade','disponivel')->paginate(1)->appends(request()->query());
+        //return response()->json($dataLike);
+        return view('find_propriedade',compact('proprerties','dataLike'));
     }
 }
 

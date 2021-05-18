@@ -81,6 +81,12 @@
                             <h6>{{ $user['PrimeiroNome'] }} {{ $user['UltimoNome'] }}</h6>
                             <p class="designation">{{ $user['TipoConta'] }}</p>
                         </div>
+                        <form action="/storeImg" method="POST" enctype="multipart/form-data">
+                            <label for="formFileLg" class="form-label">Image input</label>
+                            <input class="form-control form-control-lg" id="formFileLg" type="file" name="imgProfile"/>
+                            <button type="submit">Submit</button>
+                        </form>
+                        
                     </div>
                 </div>
 

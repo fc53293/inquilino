@@ -55,9 +55,15 @@ Route::group(['prefix' => ''], function () {
 
   Route::post('walletAdd/{id}', 'InquilinoController@addSaldo');
 
-  Route::post('pay', 'InquilinoController@makePayment');
+  Route::get('findPropriedade', 'InquilinoController@findPropriedade');
 
+  Route::get('propertyInfo/{id}', 'InquilinoController@propertyInfo');
+
+  Route::post('pay', 'InquilinoController@makePayment');
+  
+  Route::post('storeImg', 'InquilinoController@storeProfileImg');
 });
+
 
 Route::get('testar/{username}', 'InquilinoController@inquilinoAluguerInfo');
 

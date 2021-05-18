@@ -373,7 +373,7 @@ h3 {
   overflow:auto
   }
 
-  #form > img#close {
+  #formAddSaldo > img#close {
     position: absolute;
     top: -10;
     cursor: pointer;
@@ -388,7 +388,7 @@ h3 {
       margin-top: 50%;
       position: relative;
     }
-    #form {
+    #formAddSaldo {
     max-width:300px;
     min-width:250px;
     padding:10px 50px;
@@ -404,7 +404,7 @@ h3 {
     border-top:1px solid #ccc
     }
     
-    #form input[type=text] {
+    #formAddSaldo input[type=text] {
     width:82%;
     padding:10px;
     margin-top:30px;
@@ -567,3 +567,85 @@ label{
   background-color:turquoise;
   width: 450px;
 }
+
+    /* Slider Price Range*/
+
+    .slidecontainer {
+      width: 100%;
+    }
+    
+    .slider {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 25px;
+      background: #d3d3d3;
+      outline: none;
+      opacity: 0.7;
+      -webkit-transition: .2s;
+      transition: opacity .2s;
+    }
+    
+    .slider:hover {
+      opacity: 1;
+    }
+    
+    .slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 25px;
+      height: 25px;
+      background: #0d6efd;
+      cursor: pointer;
+    }
+    
+    .slider::-moz-range-thumb {
+      width: 25px;
+      height: 25px;
+      background: #0d6efd;
+      cursor: pointer;
+    }
+
+    /****************** Rating Propriedades ********************/
+
+    @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
+    fieldset, label { margin: 0; padding: 0; }
+
+
+    /****** Style Star Rating Widget *****/
+
+    .rating { 
+      border: none;
+      float: left;
+    }
+
+    .rating > input { display: none; } 
+    .rating > label:before { 
+      margin: 5px;
+      font-size: 1.25em;
+      font-family: FontAwesome;
+      display: inline-block;
+      content: "\f005";
+    }
+
+    .rating > .half:before { 
+      content: "\f089";
+      position: absolute;
+    }
+
+    .rating > label { 
+      color: #ddd; 
+    float: right; 
+    }
+
+    /***** CSS Magic to Highlight Stars on Hover *****/
+
+    .rating > input:checked ~ label, /* show gold star when clicked */
+    .rating:not(:checked) > label:hover, /* hover current star */
+    .rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
+
+    .rating > input:checked + label:hover, /* hover current star when changing rating */
+    .rating > input:checked ~ label:hover,
+    .rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+    .rating > input:checked ~ label:hover ~ label { color: #FFED85;  } 
+

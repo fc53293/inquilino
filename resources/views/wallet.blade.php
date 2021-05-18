@@ -77,7 +77,7 @@
                 <div class="txn-history">
                     <p><b>History</b></p>
                     @foreach($data2 as $info)
-                        <p class="txn-list">Payment to xyz shop<span class="{{ $info->Valor >= 0 ? 'credit-amount' : 'debit-amount' }}">{{ $info['Valor'] }} €</span></p>
+                        <p class="txn-list">Payment to UniRent account<span class="{{ $info->Valor >= 0 ? 'credit-amount' : 'debit-amount' }}">{{ $info['Valor'] }} €</span></p>
 
                     @endforeach
                 </div>
@@ -90,21 +90,50 @@
                     <!-- Popup Div Starts Here -->
                     <div id="popupContact">
                         <!-- Contact Us Form -->
-                        <form action="/walletAdd/{{ $info['IdUser'] }}" id="form" method="post" name="form">
+                        <form action="{{url('/walletAdd/'.$info['IdUser']) }}"  id="formAddSaldo" method="POST" name="form">
                             <img id="close" src="/img/closeButton.png" onclick ="div_hide()">
                             <h1>Amount</h1>
-                            <input id="name" name="nameUser" placeholder="Amount" type="hidden" value="{{ $info['Username'] }}">
+                            <input id="name2" name="nameUser" placeholder="Amount" type="hidden" value="{{ $info['Username'] }}">
                             <input id="name" name="amountToAdd" placeholder="Amount" type="number" require>
                             <br><br><br>
 
                             <!--<a href="javascript:%20check_empty()" id="submit" >Add</a>-->
-                            <button id="submitWallet" type="submit" name="sub" href="javascript:%20check_empty()">Add</button>
+                            <button id="submitWallet" name="sub" type="submit" onclick="return check_empty()" href="javascript:%20check_empty()">Add</button>
                         </form>
                         </div>
                         <!-- Popup Div Ends Here -->
                     </div>
                 </div>
-            
+                <script>
+                    
+                    $('#formAddSaldo').submit(function(e) {
+                    //alert("ola");
+                    e.preventDefault();
+                    req = $.ajax({
+                        type: 'POST',
+                        cache: false,
+                        dataType: 'JSON',
+                        url: $(this).attr('action'),
+                        data: $(this).serialize(),
+                        success: function(data) {
+                            console.log(data);
+                        }
+                    });
+                    
+                    req.done(function(data){
+                        //$('#totalAVGrating').fadeOut(500).fadeIn(500);
+                        div_hide();
+                        $('.amount-box').fadeOut(1000).fadeIn(1000);
+                        setTimeout(function(){
+                            $('.amount').text(data.res+" €");
+                        }, 1000);
+                        
+                        //alert("feito");
+                    });
+                    
+
+                    });
+                </script>
         </div>
     </div>
 
