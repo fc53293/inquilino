@@ -34,7 +34,7 @@
             <div class="mx-auto"></div>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link text-black text-end" href="{{ url('home') }}">Home</a>
+                    <a class="nav-link text-black text-end" href="{{ url('http://myunirent.pt/home') }}">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-black text-end" href="{{ url('interessadoProfile/{id}') }}">Profile</a>
@@ -44,6 +44,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-black text-end" href="{{ url('wallet/{id}') }}">Wallet</a>
+                </li>
+		<li class="nav-item">
+                    <a class="nav-link text-black text-end" href="{{ url('http://myunirent.pt/payment') }}">Payments</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-black text-end" href="#">Sign Out</a>
