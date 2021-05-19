@@ -109,7 +109,7 @@ class InquilinoController extends Controller
         $result = Carbon::createFromFormat('Y-m-d H:i:s', $rentDateInfo)->isPast();
         //dd($result);
         
-        return view('profile_user',['data'=>$user,'rent'=>$rentInfo,'rentCheck'=>$result],);
+        return view('profile_user',['data'=>$user,'rent'=>$rentInfo,'rentCheck'=>$result]);
     }
 
     public function renovarAluguer(Request $req, $id)
