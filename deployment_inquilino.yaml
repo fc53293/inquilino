@@ -22,7 +22,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: microinquilino-deployment
+  name: microinquilino-service
 spec:
   selector:
     app: microinquilino
