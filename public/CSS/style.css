@@ -433,6 +433,10 @@ h3 {
       background: #0d6efd;
       cursor: pointer;
     }
+    #map {
+      height: 200px;
+      width: 100%;
+    }
 
     /****************** Rating Propriedades ********************/
 

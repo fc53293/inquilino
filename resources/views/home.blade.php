@@ -45,7 +45,7 @@
                 <li class="nav-item">
                     <a class="nav-link text-black text-end" href="{{ url('wallet/{id}') }}">Wallet</a>
                 </li>
-		<li class="nav-item">
+		        <li class="nav-item">
                     <a class="nav-link text-black text-end" href="{{ url('http://myunirent.pt/payment') }}">Payments</a>
                 </li>
                 <li class="nav-item">

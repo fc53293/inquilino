@@ -52,7 +52,7 @@ class InquilinoController extends Controller
     public function showUserByUsername($username)
     {
         
-        $users = DB::table('utilizadores')->where('username','=' ,'goncalo')->get();
+        $users = DB::table('Utilizadores')->where('Username','=' ,'goncalo')->get();
         //return view('profile_user',['data'=>$users]);
         return response()->json($users);
     }
@@ -116,7 +116,6 @@ class InquilinoController extends Controller
     {
         $opcaoMeses = $req->input('renovarMeses1');
         $userLoged = 1;
-        //$data = Utilizador::where('IdUser','=' ,$userLoged)->get();
  
         $rent = Inquilino::where('IdUser', $id)
         // $rent->FimContrato=Carbon::now()->addMonths(6);
@@ -176,7 +175,6 @@ class InquilinoController extends Controller
     //Apresenta a pagina dos pagamentos
     public function showPaymentPage()
     {
-        //$user = Utilizador::where('username','=' ,$username)->get();
 
         return view('rentPayments');
     }
@@ -204,7 +202,7 @@ class InquilinoController extends Controller
     //Vai para a home page
     public function goHome()
     {
-        //$user = Utilizador::where('username','=' ,$username)->get();
+        //$user = Utilizador::where('Username','=' ,$username)->get();
 
         return view('home');
     }
@@ -253,7 +251,6 @@ class InquilinoController extends Controller
 
     public function findPropriedade(Request $request)
     {
-        //$user = Utilizador::where('username','=' ,$username)->where('TipoConta','=' ,'Interessado')->get();
         $dataLike = Likes::where('IdUser','=' ,1)->get();
         //$search_data2 = $_GET['query'];
         $search_data1 = $request->input('tipoProp');
