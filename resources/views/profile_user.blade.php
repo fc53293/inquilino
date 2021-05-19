@@ -18,6 +18,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
     </script>
+    <script src="/js/mapsAPI.js"></script>
 </head>
 
 <body>
@@ -60,6 +61,7 @@
     <!-- Profile -->
     <div class="banner-image w-100 vh-100 d-flex justify-content-center align-items-center pt-5 ">
         <div class="container profile-container">
+  
             <div class="row">
                 <!--<div class="col-4 profile-container__icon">
           <img class="m-3" src="img/logo/UniRent-V2.png" alt="" width="100">
@@ -89,7 +91,48 @@
                         
                     </div>
                 </div>
+                @if ($rentCheck == True)
+                <script>
+                    //alert("O seu alugyer expirou");
+                    $(document).ready(function(){
+                        $('#divExpiradoRenovar').append('<h3 id="seExpirado">ALUGUER EXPIRADO</h3>');
+                        
+                        $('#divExpiradoRenovar').append('<input type="checkbox" id="vehicle2" name="renovarMeses1" value="6">');
+                        $('#divExpiradoRenovar').append('<label for="vehicle2" classe="labelMeses"> 6 Meses</label><br>');
 
+                        $('#divExpiradoRenovar').append('<button type="button" class="mt-3 btn btn-primary" id="btnRenovar">Renovar</button>');
+                        $('#seExpirado').css('color', 'red');
+                   
+
+                    $('#btnRenovar').on('click',function(e) {
+                                e.preventDefault();
+                                req = $.ajax({
+                                    type: 'POST',
+                                    cache: false,
+                                    dataType: 'JSON',
+                                    url: "{{url('renovar/'.$user['IdUser']) }}",
+                                    data: $(this).serialize(),
+                                    success: function(data) {
+                                        console.log(data);
+                                    }
+                                });
+                                
+                                req.done(function(){
+                                    //alert("chega aqui");
+                                    $('.card').fadeOut(1000).fadeIn(1000);
+                                    setTimeout(function(){
+                                        $( "#seExpirado" ).remove();
+                                        $( "#btnRenovar" ).remove();
+                                        $( "#vehicle2" ).remove();
+                                        $('#divExpiradoRenovar').remove();
+                                        
+                                    }, 1000);
+            
+                                });
+                    });
+                });
+                </script>
+                @endif
                 <div class="col-9">
                     <div class="row">
                         <div class="col">
@@ -101,77 +144,90 @@
                         <div class="col profile-container__information">
 
                             @foreach ($data as $user)
-                            <form action="/edit/{{ $user['Username'] }}" method="POST">
+                            <form action="/edit/{{ $user['IdUser'] }}" method="POST" id="formPerfil">
                                 <input type="hidden" name="username" value="{{$user['Username']}}">
+
                                 <div class="form-group row">
-                                    <div class="form-group col">
-                                        <h2 class="pt-3">Username: </h2>
-                                        <div class="col-sm-3 ">
-                                            <input type="text" class="form-control mt-2" id="inputPassword"
-                                                name="nomeUser" value="{{ $user['Username'] }}">
-                                        </div>
+                                <div class="form-group col">
+                                    <h2 class="p-2" >Username: </h2>
+                                    <div class="col-sm-3 ">
+                                    <input type="text" class="form-control mt-2" id="inputPassword" name="nomeUser" value="{{ $user['Username'] }}">
                                     </div>
-                                    <div class="form-group col">
-                                        <h2 class="pt-3">Primeiro Nome: </h2>
-                                        <div class="col-sm-4">
-                                            <input type="text" class="form-control mt-2" id="inputPassword"
-                                                name="primeiroNome" value="{{ $user['PrimeiroNome'] }}">
-                                        </div>
+                                    
+                                </div>
+
+                                <div class="form-group col">
+                                    <h2 class="p-2">Primeiro Nome: </h2>
+                                    <div class="col-sm-4">
+                                    <input type="text" class="form-control mt-2" id="inputPassword" name="primeiroNome" value="{{ $user['PrimeiroNome'] }}">
                                     </div>
                                 </div>
+                                </div>
+
                                 <div class="form-group row">
-                                    <div class="form-group col">
-                                        <h2 class="pt-3">Email:</h2>
-                                        <div class="col-sm-6">
-                                            <input type="text" class="form-control mt-2" id="inputPassword" name="mail"
-                                                placeholder="CHANGE ME!" value="{{ $user['Email'] }}">
-                                        </div>
-                                    </div>
-                                    <div class="form-group col">
-                                        <h2 class="pt-3">Último Nome: </h2>
-                                        <div class="col-sm-4">
-                                            <input type="text" class="form-control mt-2" id="inputPassword"
-                                                name="ultimoNome" value="{{ $user['UltimoNome'] }}">
-                                        </div>
+                                <div class="form-group col">
+                                    <h2 class="p-2">Email:</h2>
+                                    <div class="col-sm-6">
+                                    <input type="text" class="form-control mt-2" id="inputPassword" name="mail" placeholder="CHANGE ME!" value="{{ $user['Email'] }}"> 
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <div class="form-group col">
-                                        <h2 class="pt-3">Morada:</h2>
-                                        <div class="col-sm-6">
-                                            <input type="text" class="form-control mt-2" id="inputPassword"
-                                                placeholder="CHANGE ME!" name="morada" value="{{ $user['Morada'] }}">
-                                        </div>
-                                    </div>
-                                    <div class="form-group col">
-                                        <h2 class="pt-3">Data de Nascimento:</h2>
-                                        <div class="col-sm-4">
-                                            <input type="text" class="form-control mt-2" id="inputPassword"
-                                                placeholder="CHANGE ME!" value="{{ $user['Nascimento'] }}">
-                                        </div>
+                                <div class="form-group col">
+                                    <h2 class="p-2">Utimo Nome: </h2>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control mt-2" id="inputPassword" name="ultimoNome" value="{{ $user['UltimoNome'] }}">
                                     </div>
                                 </div>
-                                <button type="submit" class="mt-3 btn btn-primary ">Make Changes!</button>
+                                </div>
+
+                                <div class="form-group row">
+                                <div class="form-group col">
+                                    <h2 class="p-2">Morada:</h2>
+                                    <div class="col-sm-6">
+                                    <input type="text" class="form-control mt-2" id="inputPassword" placeholder="CHANGE ME!" name="morada" value="{{ $user['Morada'] }}">
+                                    </div>
+                                </div>
+                                <div class="form-group col">
+                                    <h2 class="p-2">Data de Nascimento:</h2>
+                                    <div class="col-sm-4">
+                                    <input type="text" class="form-control mt-2" id="inputPassword" placeholder="CHANGE ME!" name="dateNascimento" value="{{ $user['Nascimento'] }}">
+                                    </div>
+                                </div>
+                                </div>
+                                    <button type="submit" class="mt-3 btn btn-primary ">Make Changes!</button>
                             </form>
                             @endforeach
+                            <script>
+                                    $('#formPerfil').submit(function(e) {
+                                    //alert("ola");
+                                    e.preventDefault();
+                                    req = $.ajax({
+                                        type: 'POST',
+                                        cache: false,
+                                        dataType: 'JSON',
+                                        url: $(this).attr('action'),
+                                        data: $(this).serialize(),
+                                        success: function(data) {
+                                            console.log(data);
+                                        }
+                                    });
+                                    
+                                    req.done(function(data){
+                                        //$('#totalAVGrating').fadeOut(500).fadeIn(500);
+                                        
+                                        $('.form-group').fadeOut(1000).fadeIn(1000);
+                                        // setTimeout(function(){
+                                        //     $('.amount').text(data.res+" €");
+                                        // }, 1000);
+                                        
+                                        //alert("feito");
+                                    });
+                                    
 
-                            <h2 class="mt-5 p-2 font-effect__blue">Alugueres:</h2>
+                                    });
+                            </script>
+                            <h2 class="mt-5 p-2 font-effect__blue">Meu Aluguer:</h2>
                             @foreach ($rent as $rentData)
-                            <!--<div class="row mx-2 text-center profile-container__recentViewed">
-                  <div class="col m-1 recentViewed">
-                    <img class="m-3" src="img/logo/UniRent-V2.png" alt="" width="50">
-                    <h3>{{ $rentData['Localizacao'] }}</h3>
-                    <h3>{{ $rentData['TipoPropriedade'] }}</h3>
-                  </div>
-                  <div class="col m-1 recentViewed">
-                    <img class="m-3 recentViewed__image" src="img/logo/UniRent-V2.png" alt="" width="50">
-                    <h3>Localidade Propriedade</h3>
-                  </div>
-                  <div class="col m-1 recentViewed">
-                    <img class="m-3 recentViewed__image" src="img/logo/UniRent-V2.png" alt="" width="50">
-                    <h3>Localidade Propriedade</h3>
-                  </div>
-                </div>-->
+
                             <div class="card text-center">
                                 <div class="card-header">
                                     <ul class="nav nav-tabs">
@@ -193,25 +249,31 @@
                                             <h3>Tipo: {{ $rentData['TipoPropriedade'] }}</h3>
                                             <h3>Localização: {{ $rentData['Localizacao'] }}</h3>
                                             <h3>Area: {{ $rentData['AreaMetros'] }} m2</h3>
+                                            <div id="divExpiradoRenovar">
+                                            
+                                            </div>
                                         </div>
 
 
                                         <div class="tab-pane fade" id="profile">
-                                            <h3>Aqui vai aparecer o mapa!</h3>
-
+                                        <div id="map"></div>
+                    
                                         </div>
                                         <div class="tab-pane fade" id="contact">...</div>
                                     </div>
-                            </div>
-                          
-                                    </div>
-                                    <div class="tab-pane fade" id="profile">
-                                        <h3>Aqui vai aparecer o mapa!</h3>
-                                        >>>>>>> Stashed changes
-                                    </div>
-                                    <div class="tab-pane fade" id="contact">...</div>
-                                </div>
-                            </div>
+                                    <script>
+                                        function initMap() {
+                                        const map = new google.maps.Map(document.getElementById("map"), {
+                                            zoom: 14,
+                                            center: { lat: {{ $rentData['Latitude'] }}, lng: {{ $rentData['Longitude'] }} },
+                                        });
+                                        new google.maps.Marker({
+                                        position: map['center'],
+                                        map,
+                                        title: "Hello World!",
+                                        });
+                                        }
+                                    </script>
 
                         </div>
                         @endforeach
@@ -221,5 +283,6 @@
         </div>
     </div>
     </div>
+
     <!-- END Profile -->
 </body>

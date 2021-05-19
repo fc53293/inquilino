@@ -78,14 +78,15 @@ class InquilinoController extends Controller
     }
 
     //Updates Inqilino
-    public function updateInquilino(Request $req, $username)
+    public function updateInquilino(Request $req, $id)
     {
-        $data = Utilizador::find($username);
+        $data = Utilizador::find($id);
         $data->Username=$req->input('nomeUser');
         $data->PrimeiroNome=$req->input('primeiroNome');
         $data->UltimoNome=$req->input('ultimoNome');
         $data->Email=$req->input('mail');
         $data->Morada=$req->input('morada');
+        $data->Nascimento=$req->input('dateNascimento');
         $data->save();
         
         return response()->json('Updated successfully.');
@@ -100,10 +101,34 @@ class InquilinoController extends Controller
 
         $rentInfo = Inquilino::join('Propriedades', 'Propriedades.IdPropriedade', '=', 'Inquilino.IdPropriedade')
             ->where('Inquilino.IdUser', '=',$id)
-            ->select('Inquilino.IdInquilino', 'Inquilino.Username', 'Inquilino.IdPropriedade', 'Propriedades.TipoPropriedade', 'Propriedades.Localizacao','Propriedades.AreaMetros')
+            ->select('Inquilino.IdInquilino', 'Inquilino.Username', 'Inquilino.IdPropriedade', 'Propriedades.TipoPropriedade', 'Propriedades.Localizacao','Propriedades.AreaMetros','Propriedades.Latitude','Propriedades.Longitude')
             ->get();
 
-        return view('profile_user',['data'=>$user],['rent'=>$rentInfo]);
+        $rentDateInfo = Inquilino::where('IdUser',$id)->value('FimContrato');
+        
+        $result = Carbon::createFromFormat('Y-m-d H:i:s', $rentDateInfo)->isPast();
+        //dd($result);
+        
+        return view('profile_user',['data'=>$user,'rent'=>$rentInfo,'rentCheck'=>$result],);
+    }
+
+    public function renovarAluguer(Request $req, $id)
+    {
+        $opcaoMeses = $req->input('renovarMeses1');
+        $userLoged = 1;
+        //$data = Utilizador::where('IdUser','=' ,$userLoged)->get();
+ 
+        $rent = Inquilino::where('IdUser', $id)
+        // $rent->FimContrato=Carbon::now()->addMonths(6);
+        // $rent->save();
+       ->update([
+           'FimContrato' => Carbon::now()->addMonthsNoOverflow(6)
+        ]);
+        $rentDateInfo = Inquilino::where('IdUser',$id)->value('FimContrato');
+        $result = Carbon::createFromFormat('Y-m-d H:i:s', $rentDateInfo)->isPast();
+        return response()->json(['rentCheck'=>$result]);
+        
+
     }
 
     public function inquilinoAluguerInfo($username){
