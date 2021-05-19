@@ -48,7 +48,7 @@
                         <a class="nav-link text-black text-end" href="{{ url('wallet/{id}') }}">Wallet</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-black text-end" href="{{ url('payment') }}">Payments</a>
+                        <a class="nav-link text-black text-end" href="{{ url('/payment') }}">Payments</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-black text-end" href="#">Sign Out</a>
