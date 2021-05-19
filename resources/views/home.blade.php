@@ -37,7 +37,7 @@
                     <a class="nav-link text-black text-end" href="{{ url('home') }}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-black text-end" href="{{ url('interessadoProfile/{id}') }}">Profile</a>
+                    <a class="nav-link text-black text-end" href="{{ url('inquilinoProfile/{id}') }}">Profile</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-black text-end" href="{{ url('findPropriedade') }}">Search</a>
