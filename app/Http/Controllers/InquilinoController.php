@@ -97,7 +97,7 @@ class InquilinoController extends Controller
     {
         //$request->session()->put('key', 'value');
 
-        $user = Utilizador::where('IdUser','=' ,$id)->get();
+        $user = Utilizador::where('IdUser',$id)->get();
 
         $rentInfo = Inquilino::join('Propriedades', 'Propriedades.IdPropriedade', '=', 'Inquilino.IdPropriedade')
             ->where('Inquilino.IdUser', '=',$id)
