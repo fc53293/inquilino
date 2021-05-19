@@ -36,7 +36,7 @@
         <div class="mx-auto"></div>
         <ul class="navbar-nav">
         <li class="nav-item">
-                        <a class="nav-link text-black text-end" href="">Home</a>
+                        <a class="nav-link text-black text-end" href="{{ url('home') }}">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-black text-end" href="{{ url('inquilinoProfile/{id}') }}">Profile</a>
