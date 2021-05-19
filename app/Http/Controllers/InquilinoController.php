@@ -181,17 +181,7 @@ class InquilinoController extends Controller
     {
         //$user = Utilizador::where('username','=' ,$username)->get();
 
-        //Initialize the cURL session
-        $ch = curl_init();
-
-        //Return the page content
-        
-        curl_setopt($ch, CURLOPT_URL, "microinquilino-service:8081/home");
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
-        
-        curl_exec($ch);
-
-        curl_close($ch);
+        return view('home');
     }
 
     //Guardar a imagem de perfil
