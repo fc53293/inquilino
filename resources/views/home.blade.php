@@ -36,7 +36,8 @@
         <div class="mx-auto"></div>
         <ul class="navbar-nav">
         <li class="nav-item">
-            <a class="nav-link text-black text-end" href="{{url('http://myunirent.pt/home')}}">Home</a>
+            
+            <a class="nav-link text-black text-end" href="{{url('http://myunirent.pt/home')}}"> Home </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-black text-end" href="{{ url('inquilinoProfile/{id}') }}">Profile</a>
