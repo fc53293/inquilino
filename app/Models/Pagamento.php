@@ -19,7 +19,7 @@ class Pagamento extends Model
      * @var array
      */
 
-    protected $table = 'pagamentos';
+    protected $table = 'Pagamentos';
     protected  $primaryKey = 'IdPagamento';
     public $incrementing = true;
     public $timestamps=false;

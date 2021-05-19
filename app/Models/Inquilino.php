@@ -20,7 +20,7 @@ class Inquilino extends Model
      * @var array
      */
 
-    protected $table = 'inquilino';
+    protected $table = 'Inquilino';
     protected  $primaryKey = 'IdInquilino';
     public $incrementing = true;
     public $timestamps=false;
