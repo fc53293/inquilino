@@ -80,18 +80,8 @@ class InquilinoController extends Controller
     //Updates Inqilino
     public function updateInquilino(Request $req, $id)
     {
-        $ola = $req->input('morada');
-
-        $data = Utilizador::find($id);
-        $data->Username=$req->input('nomeUser');
-        $data->PrimeiroNome=$req->input('primeiroNome');
-        $data->UltimoNome=$req->input('ultimoNome');
-        $data->Email=$req->input('mail');
-        $data->Morada=$req->input('morada');
-        $data->Nascimento=$req->input('dateNascimento');
-        $data->save();
-        
-        return response()->json([$ola,"morada"]);
+  
+        return response()->json("resposta");
     }
 
     //Vai buscar os dados para o perfil do Inqilino
