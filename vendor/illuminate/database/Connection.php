@@ -868,16 +868,6 @@ class Connection implements ConnectionInterface
     }
 
     /**
-     * Reset the record modification state.
-     *
-     * @return void
-     */
-    public function forgetRecordModificationState()
-    {
-        $this->recordsModified = false;
-    }
-
-    /**
      * Is Doctrine available?
      *
      * @return bool
