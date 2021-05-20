@@ -110,7 +110,7 @@
                                     type: 'POST',
                                     cache: false,
                                     dataType: 'JSON',
-                                    url: "{{url('renovar/'.$user['IdUser']) }}",
+                                    url: "{{url('http://myunirent.pt/renovar/'.$user['IdUser']) }}",
                                     data: $(this).serialize(),
                                     success: function(data) {
                                         console.log(data);
