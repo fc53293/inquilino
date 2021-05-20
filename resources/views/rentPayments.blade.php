@@ -68,13 +68,10 @@
               <input type="text" class="formInput"> <br>-->
 
               <label>Contribuinte</label> <br>
-              <input type="text" class="formInput" id="contriPay"> <br>
+              <input type="text" class="formInput" id="contriPay" maxlength="9" minlength="9"> <br>
               
               <label>Email</label><br>
-              <input type="text" class="formInput" id="mailPay"> <br>
-
-              <label>Data</label><br>
-              <input type="date" class="formInput" id="datePay"> <br>
+              <input type="email" class="formInput" id="mailPay"> <br>
             </div>
             <button class="formbttn"> Pay Amount </button>
           
