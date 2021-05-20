@@ -91,7 +91,7 @@ class InquilinoController extends Controller
         $data->Nascimento=$req->input('dateNascimento');
         $data->save();
         
-        return response()->json($ola);
+        return response()->json([$ola,"morada"]);
     }
 
     //Vai buscar os dados para o perfil do Inqilino
