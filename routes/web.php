@@ -51,7 +51,7 @@ Route::group(['prefix' => ''], function () {
 
   Route::get('payment', 'InquilinoController@showPaymentPage');
 
-  Route::post('edit/{id}', 'InquilinoController@updateInquilino');
+  Route::post('/edit/{id}', 'InquilinoController@updateInquilino');
 
   Route::post('walletAdd/{id}', 'InquilinoController@addSaldo');
 

@@ -144,14 +144,14 @@
                         <div class="col profile-container__information">
 
                             @foreach ($data as $user)
-                            <form action="http://myunirent.pt/edit/{{ $user['IdUser'] }}" method="POST" id="formPerfil">
+                            <form action="{{url('http://myunirent.pt/edit/'. $user['IdUser']) }} " method="POST" id="formPerfil">
                                 <input type="hidden" name="username" value="{{$user['Username']}}">
 
                                 <div class="form-group row">
                                 <div class="form-group col">
                                     <h2 class="p-2" >Username: </h2>
                                     <div class="col-sm-3 ">
-                                    <input type="text" class="form-control mt-2" id="inputPassword" name="nomeUser" value="{{ $user['Username'] }}">
+                                    <input type="text" class="form-control mt-2" name="nomeUser" value="{{ $user['Username'] }}">
                                     </div>
                                     
                                 </div>
@@ -159,7 +159,7 @@
                                 <div class="form-group col">
                                     <h2 class="p-2">Primeiro Nome: </h2>
                                     <div class="col-sm-4">
-                                    <input type="text" class="form-control mt-2" id="inputPassword" name="primeiroNome" value="{{ $user['PrimeiroNome'] }}">
+                                    <input type="text" class="form-control mt-2" name="primeiroNome" value="{{ $user['PrimeiroNome'] }}">
                                     </div>
                                 </div>
                                 </div>
@@ -168,13 +168,13 @@
                                 <div class="form-group col">
                                     <h2 class="p-2">Email:</h2>
                                     <div class="col-sm-6">
-                                    <input type="text" class="form-control mt-2" id="inputPassword" name="mail" placeholder="CHANGE ME!" value="{{ $user['Email'] }}"> 
+                                    <input type="text" class="form-control mt-2" name="mail" placeholder="CHANGE ME!" value="{{ $user['Email'] }}"> 
                                     </div>
                                 </div>
                                 <div class="form-group col">
                                     <h2 class="p-2">Utimo Nome: </h2>
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control mt-2" id="inputPassword" name="ultimoNome" value="{{ $user['UltimoNome'] }}">
+                                        <input type="text" class="form-control mt-2" name="ultimoNome" value="{{ $user['UltimoNome'] }}">
                                     </div>
                                 </div>
                                 </div>
@@ -183,13 +183,13 @@
                                 <div class="form-group col">
                                     <h2 class="p-2">Morada:</h2>
                                     <div class="col-sm-6">
-                                    <input type="text" class="form-control mt-2" id="inputPassword" placeholder="CHANGE ME!" name="morada" value="{{ $user['Morada'] }}">
+                                    <input type="text" class="form-control mt-2" placeholder="CHANGE ME!" name="morada" value="{{ $user['Morada'] }}">
                                     </div>
                                 </div>
                                 <div class="form-group col">
                                     <h2 class="p-2">Data de Nascimento:</h2>
                                     <div class="col-sm-4">
-                                    <input type="text" class="form-control mt-2" id="inputPassword" placeholder="CHANGE ME!" name="dateNascimento" value="{{ $user['Nascimento'] }}">
+                                    <input type="text" class="form-control mt-2" placeholder="CHANGE ME!" name="dateNascimento" value="{{ $user['Nascimento'] }}">
                                     </div>
                                 </div>
                                 </div>
