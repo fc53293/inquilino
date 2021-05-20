@@ -40,16 +40,13 @@
                     <a class="nav-link text-black text-end" href="{{ url('http://myunirent.pt/inquilinoProfile/1') }}">Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-black text-end" href="{{ url('findPropriedade') }}">Search</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link text-black text-end" href="{{ url('http://myunirent.pt/wallet/1') }}">Wallet</a>
                 </li>
 		        <li class="nav-item">
                     <a class="nav-link text-black text-end" href="{{ url('http://myunirent.pt/payment') }}">Payments</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-black text-end" href="#">Sign Out</a>
+                    <a class="nav-link text-black text-end" href="{{ url('http://myunirent.pt/') }}">Sign Out</a>
                 </li>
             </ul>
         </div>

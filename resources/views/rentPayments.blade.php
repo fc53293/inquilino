@@ -28,23 +28,22 @@
         <div class="mx-auto"></div>
         <ul class="navbar-nav">
         <li class="nav-item">
-                        <a class="nav-link text-black text-end" href="{{ url('home') }}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-black text-end" href="{{ url('inquilinoProfile/{id}') }}">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-black text-end" href="#">Search</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-black text-end" href="{{ url('wallet/{id}') }}">Wallet</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-black text-end" href="{{ url('payment') }}">Payments</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-black text-end" href="#">Sign Out</a>
-                    </li>
+            <a class="nav-link text-black text-end" href="{{ url('home') }}">Home</a>
+                        <li class="nav-item">
+                    <a class="nav-link text-black text-end" href="{{ url('http://myunirent.pt/home') }}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-black text-end" href="{{ url('http://myunirent.pt/inquilinoProfile/1') }}">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-black text-end" href="{{ url('http://myunirent.pt/wallet/1') }}">Wallet</a>
+                </li>
+		        <li class="nav-item">
+                    <a class="nav-link text-black text-end" href="{{ url('http://myunirent.pt/payment') }}">Payments</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-black text-end" href="{{ url('http://myunirent.pt/') }}">Sign Out</a>
+                </li>
         </ul>
       </div>
     </div>
