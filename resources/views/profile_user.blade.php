@@ -144,7 +144,7 @@
                         <div class="col profile-container__information">
 
                             @foreach ($data as $user)
-                            <form action="{{url('http://myunirent.pt/edit/'. $user['IdUser']) }} " method="POST" id="formPerfil">
+                            <form action="{{url('/edit/'. $user['IdUser']) }} " method="POST" id="formPerfil">
                                 <input type="hidden" name="username" value="{{$user['Username']}}">
 
                                 <div class="form-group row">
