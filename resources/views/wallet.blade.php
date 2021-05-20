@@ -85,11 +85,11 @@
                     <!-- Popup Div Starts Here -->
                     <div id="popupContact">
                         <!-- Contact Us Form -->
-                        <form action="{{url('/walletAdd/'.$info['IdUser']) }}"  id="formAddSaldo" method="POST" name="form">
+                        <form action="{{url('http://myunirent.pt/walletAdd/'.$info['IdUser']) }}"  id="formAddSaldo" method="POST" name="form">
                             <img id="close" src="/img/closeButton.png" onclick ="div_hide()">
                             <h1 class="font-effect__blue p-2">Amount</h1>
                             <input id="name2" name="nameUser" placeholder="Amount" type="hidden" value="{{ $info['Username'] }}">
-                            <input id="name" name="amountToAdd" placeholder="Amount" type="number" require>
+                            <input id="name" name="amountToAdd" placeholder="Amount" type="number" min="0" require>
                             <br><br><br>
 
                             <!--<a href="javascript:%20check_empty()" id="submit" >Add</a>-->

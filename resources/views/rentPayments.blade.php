@@ -96,7 +96,7 @@ $(document).ready(function(){
     var datastr = [amountPay,contriPay,mailPay,datePay];
     $.ajax({
       type: "POST",
-      url: "/pay", // need to create this post route
+      url: "http://myunirent.pt/pay", // need to create this post route
       data: {
         IdInquilino: 1,
         IdSenhorio: 2,
@@ -106,7 +106,7 @@ $(document).ready(function(){
       },
       cache: false,
       success: function (data) {
-        window.location = "inquilinoProfile/1";  //Mudar para entrar no user atual
+        window.location = "http://myunirent.pt/inquilinoProfile/1";  //Mudar para entrar no user atual
       }
   })
   });
