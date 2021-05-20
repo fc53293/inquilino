@@ -52,27 +52,38 @@
   
   <!-- Banner -->
   <div class="banner-image w-100 vh-100 d-flex justify-content-center align-items-center">
-    <div class="content text-center">
-      <h1 class="m-5">Pagamentos </h1>    
+    <div class="content profile-container text-center">
+      <h1 class="m-5 font-effect__blue">Payments</h1>    
 
-      <div class="payment">
-            <h5 style="font-size: 22px;position: relative; top: 20px;">Pay Invoice</h5>
+      <div class="payment p-2" style="border-radius: 10px">
+            <h2 class="font-effect__blue" style="text-transform: uppercase; position: relative; top: 20px;">Pay Invoice</h2>
             
               <div class="form_content">
-              <label style="position: relative; top: 30px;">Payment amount</label>
+              <label class="p-2 font-effect__blue" style="position: relative; top: 30px;">Payment amount</label>
               <h5 style="position: relative; top: 35px; left: 20px;">$</h5>
               <input type="number" class="formAmountInput" value="Amount" id="AmountPay" name="AmountPay"> <br>
 
               <!--<label>Name</label> <br>
               <input type="text" class="formInput"> <br>-->
 
+<<<<<<< Updated upstream
               <label>Contribuinte</label> <br>
               <input type="text" class="formInput" id="contriPay" maxlength="9" minlength="9"> <br>
               
               <label>Email</label><br>
               <input type="email" class="formInput" id="mailPay"> <br>
+=======
+              <label class="p-2 font-effect__blue" >Contribuinte</label> <br>
+              <input type="text" class="formInput" id="contriPay"> <br>
+              
+              <label class="p-2 font-effect__blue">Email</label><br>
+              <input type="text" class="formInput" id="mailPay"> <br>
+
+              <label class="p-2 font-effect__blue">Data</label><br>
+              <input type="date" class="formInput" id="datePay"> <br>
+>>>>>>> Stashed changes
             </div>
-            <button class="formbttn"> Pay Amount </button>
+            <button class="mt-5 btn btn-outline-primary"> Pay Amount </button>
           
           
       </div>
