@@ -83,10 +83,10 @@
                             <h6>{{ $user['PrimeiroNome'] }} {{ $user['UltimoNome'] }}</h6>
                             <p class="designation">{{ $user['TipoConta'] }}</p>
                         </div>
-                        <form action="/storeImg" method="POST" enctype="multipart/form-data">
-                            <label for="formFileLg" class="form-label">Image input</label>
-                            <input class="form-control form-control-lg" id="formFileLg" type="file" name="imgProfile"/>
-                            <button type="submit">Submit</button>
+                        <form class="p-2" action="/storeImg" method="POST" enctype="multipart/form-data">
+                            <label for="formFileLg" class="form-label pt-2 px-1"><h2>Alterar imagem</h2></label>
+                            <input class="form-control" id="formFileLg" type="file" name="imgProfile"/>
+                            <button type="submit" class="btn btn-primary mt-2">Submit</button>
                         </form>
                         
                     </div>
@@ -95,10 +95,10 @@
                 <script>
                     //alert("O seu alugyer expirou");
                     $(document).ready(function(){
-                        $('#divExpiradoRenovar').append('<h3 id="seExpirado">ALUGUER EXPIRADO</h3>');
+                        $('#divExpiradoRenovar').append('<h3 id="seExpirado"><strong>ALUGUER EXPIRADO</strong></h3>');
                         
-                        $('#divExpiradoRenovar').append('<input type="checkbox" id="vehicle2" name="renovarMeses1" value="6">');
-                        $('#divExpiradoRenovar').append('<label for="vehicle2" classe="labelMeses"> 6 Meses</label><br>');
+                        $('#divExpiradoRenovar').append('<input class="m-1" type="checkbox" id="vehicle2" name="renovarMeses1" value="6">');
+                        $('#divExpiradoRenovar').append('<label for="vehicle2" classe="labelMeses">6 Meses</label><br>');
 
                         $('#divExpiradoRenovar').append('<button type="button" class="mt-3 btn btn-primary" id="btnRenovar">Renovar</button>');
                         $('#seExpirado').css('color', 'red');
@@ -172,7 +172,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group col">
-                                    <h2 class="p-2">Utimo Nome: </h2>
+                                    <h2 class="p-2">Último Nome: </h2>
                                     <div class="col-sm-4">
                                         <input type="text" class="form-control mt-2" name="ultimoNome" value="{{ $user['UltimoNome'] }}">
                                     </div>
@@ -246,9 +246,9 @@
                                 <div class="card-body">
                                     <div class="tab-content" id="myTabContent">
                                         <div class="tab-pane active" id="home">
-                                            <h3>Tipo: {{ $rentData['TipoPropriedade'] }}</h3>
-                                            <h3>Localização: {{ $rentData['Localizacao'] }}</h3>
-                                            <h3>Area: {{ $rentData['AreaMetros'] }} m2</h3>
+                                            <h3><strong>Tipo:</strong> {{ $rentData['TipoPropriedade'] }}</h3>
+                                            <h3><strong>Localização:</strong> {{ $rentData['Localizacao'] }}</h3>
+                                            <h3><strong>Área:</strong> {{ $rentData['AreaMetros'] }} m2</h3>
                                             <div id="divExpiradoRenovar">
                                             
                                             </div>

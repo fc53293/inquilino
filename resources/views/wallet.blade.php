@@ -25,7 +25,7 @@
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark p-md-3">
     <div class="container">
       <a class="navbar-brand" href="#">
-        <img src="img/logo/UniRent-V2.png" alt="" width="100">
+        <img src="/img/logo/UniRent-V2.png" alt="" width="100">
       </a>
       <button class="navbar-toggler bg-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -60,30 +60,25 @@
     <div class="banner-image w-100 vh-100 d-flex justify-content-center align-items-center pt-5 ">
         <div >
             <div class="wallet-container text-center">
-            <p class="page-title"><i class="fa fa-align-left"></i>MyUniRent wallet<i class="fa fa-user"></i></p>
+            <p class="page-title"><h2 class="font-effect__blue">MyUniRent Wallet</h2><i class="fa fa-user"></i></p>
             @foreach ($data as $info)
-            
-            <div class="amount-box text-center">
+
+            <div class="amount-box text-center pt-2">
                 <img src="https://lh3.googleusercontent.com/ohLHGNvMvQjOcmRpL4rjS3YQlcpO0D_80jJpJ-QA7-fQln9p3n7BAnqu3mxQ6kI4Sw" alt="wallet">
-                <p>Total Balance</p>
+                <p class="font-effect__blue p-2">Total Balance:</p>
                 <p class="amount">{{ $info['Saldo'] }} €</p>
-               
             </div>
             
             <div class="btn-group text-center">
-                <button type="button" class="btn btn-outline-light" onclick="div_show()">Add Money</button>
-                </div>
+                <button type="button" class="btn btn-outline-primary" id="btnAddMoney" onclick="div_show()">Add Money</button>
+            </div>
 
                 <div class="txn-history">
-                    <p><b>History</b></p>
+                    <h2 class="font-effect__blue pb-3">History</h2>
                     @foreach($data2 as $info)
-                        <p class="txn-list">Payment to UniRent account<span class="{{ $info->Valor >= 0 ? 'credit-amount' : 'debit-amount' }}">{{ $info['Valor'] }} €</span></p>
+                        <p class="txn-list mb-3">Payment to UniRent account<span class="{{ $info->Valor >= 0 ? 'credit-amount' : 'debit-amount' }}">{{ $info['Valor'] }} €</span></p>
 
                     @endforeach
-                </div>
-
-                <div class="footer-menu">
-                 
                 </div>
 
                 <div id="abc">
@@ -92,13 +87,13 @@
                         <!-- Contact Us Form -->
                         <form action="{{url('/walletAdd/'.$info['IdUser']) }}"  id="formAddSaldo" method="POST" name="form">
                             <img id="close" src="/img/closeButton.png" onclick ="div_hide()">
-                            <h1>Amount</h1>
+                            <h1 class="font-effect__blue p-2">Amount</h1>
                             <input id="name2" name="nameUser" placeholder="Amount" type="hidden" value="{{ $info['Username'] }}">
                             <input id="name" name="amountToAdd" placeholder="Amount" type="number" require>
                             <br><br><br>
 
                             <!--<a href="javascript:%20check_empty()" id="submit" >Add</a>-->
-                            <button id="submitWallet" name="sub" type="submit" onclick="return check_empty()" href="javascript:%20check_empty()">Add</button>
+                            <button class="btn btn-outline-primary" id="submitWallet" name="sub" type="submit" onclick="return check_empty()" href="javascript:%20check_empty()">Add</button>
                         </form>
                         </div>
                         <!-- Popup Div Ends Here -->
@@ -117,7 +112,6 @@
                         data: $(this).serialize(),
                         success: function(data) {
                             console.log(data);
-                            
                         }
                     });
                     
