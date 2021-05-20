@@ -25,7 +25,7 @@
 </head>
 
 <body>
-    <nav class="navbar bg-navbar navbar-expand-lg navbar-dark p-md-3">
+    <nav class="navbar navbarPropInfo bg-navbar navbar-expand-lg navbar-dark p-md-3">
         <div class="container">
             <a class="navbar-brand" href="#">
                 <img src="/img/logo/UniRent-V2.png" alt="" width="100">
