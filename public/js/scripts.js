@@ -12,6 +12,7 @@ function check_empty() {
     //Function To Display Popup
     function div_show() {
     document.getElementById('abc').style.display = "block";
+    
     }
     //Function to Hide Popup
     function div_hide(){
@@ -28,7 +29,7 @@ function check_empty() {
     }
 
     function hideProfile(){
-      document.getElementById('profileTudo').style.display = "none";
+      document.getElementsByClassName('container').style.display = "none";
     }
 
     function div_showPaypal() {

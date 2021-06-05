@@ -8,7 +8,6 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="/CSS/style.css">
-    
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link
         href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
@@ -22,122 +21,6 @@
     <script src="/JS/mapsAPI.js"></script>
     <script src="/JS/scripts.js"></script>
 </head>
-            <script src="https://www.paypal.com/sdk/js?client-id=AYJGD5inw4UzvP97ZAF5D7I0z_oQXv5QXAfwQSGk_UogddNFuZsEZw6NkCD5Kaxz2vfJGZlrCyn4q4JD&currency=EUR" data-sdk-integration-source="button-factory"></script>
-                <script>
-                function initPayPalButton() {
-                    var description = document.querySelector('#smart-button-container #description');
-                    var amount = document.querySelector('#smart-button-container #amount');
-                    var descriptionError = document.querySelector('#smart-button-container #descriptionError');
-                    var priceError = document.querySelector('#smart-button-container #priceLabelError');
-                    var invoiceid = document.querySelector('#smart-button-container #invoiceid');
-                    var invoiceidError = document.querySelector('#smart-button-container #invoiceidError');
-                    var invoiceidDiv = document.querySelector('#smart-button-container #invoiceidDiv');
-
-                    var elArr = [description, amount];
-
-                    if (invoiceidDiv.firstChild.innerHTML.length > 1) {
-                    invoiceidDiv.style.display = "block";
-                    }
-
-                    var purchase_units = [];
-                    purchase_units[0] = {};
-                    purchase_units[0].amount = {};
-
-                    function validate(event) {
-                    return event.value.length > 0;
-                    }
-
-                    paypal.Buttons({
-                    style: {
-                        color: 'gold',
-                        shape: 'rect',
-                        label: 'paypal',
-                        layout: 'vertical',
-                        
-                    },
-
-                    onInit: function (data, actions) {
-                        actions.disable();
-
-                        if(invoiceidDiv.style.display === "block") {
-                        elArr.push(invoiceid);
-                        }
-
-                        elArr.forEach(function (item) {
-                        item.addEventListener('keyup', function (event) {
-                            var result = elArr.every(validate);
-                            if (result) {
-                            actions.enable();
-                            } else {
-                            actions.disable();
-                            }
-                        });
-                        });
-                    },
-
-                    onClick: function () {
-                        if (description.value.length < 1) {
-                        descriptionError.style.visibility = "visible";
-                        } else {
-                        descriptionError.style.visibility = "hidden";
-                        }
-
-                        if (amount.value.length < 1) {
-                        priceError.style.visibility = "visible";
-                        } else {
-                        priceError.style.visibility = "hidden";
-                        }
-
-                        if (invoiceid.value.length < 1 && invoiceidDiv.style.display === "block") {
-                        invoiceidError.style.visibility = "visible";
-                        } else {
-                        invoiceidError.style.visibility = "hidden";
-                        }
-
-                        purchase_units[0].description = description.value;
-                        purchase_units[0].amount.value = amount.value;
-
-                        if(invoiceid.value !== '') {
-                        purchase_units[0].invoice_id = invoiceid.value;
-                        }
-                    },
-
-                    createOrder: function (data, actions) {
-                        return actions.order.create({
-                        purchase_units: purchase_units,
-                        });
-                    },
-
-                    onApprove: function (data, actions) {
-                        return actions.order.capture().then(function (details) {
-                            alert('Transaction completed by ' + details.payer.name.given_name + '!');
-                            let jsonInfos = {"Descricao":details.purchase_units[0].description,"amountToAdd":details.purchase_units[0].amount.value};
-                            console.log(jsonInfos);
-                            var data = new FormData();
-                            data.append( "json", JSON.stringify( jsonInfos ) );
-                            //$.post( '/senhorio/wallet/add', data ); 
-                            return fetch('/walletAddInteressado/2', {
-                                method: 'POST',
-                                headers: {
-                                'Accept': 'application/json',
-                                'Content-Type': 'application/json'
-                                },                                
-                                body: JSON.stringify( jsonInfos)                                
-                            }).then(function(res) {
-                                if (!res.ok) {
-                                alert('Something went wrong');
-                                }
-                            });
-                        });
-                    },
-
-                    onError: function (err) {
-                        console.log(err);
-                    }
-                    }).render('#paypal-button-container');
-                }
-                initPayPalButton();
-            </script>
 <body>
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark p-md-3">
     <div class="container">
@@ -209,23 +92,35 @@
                         .dropdown a:hover {background-color: #ddd;}
 
                         .show {display: block;}
+
+                        div#popupContact {
+ 
+                            margin-top: 10%;
+                            margin-left: 10%;
+                        }
+
+                        @media screen and (max-width:600px){
+                            #divImageProfile{
+                                width: 100%;
+                                height: auto;
+     
+                            }
+                        }
                         </style>
 
                         <div class="dropdown">
                             <button onclick="myFunction()" class="dropbtn"></button>
                             <div id="myDropdown" class="dropdown-content">
                             <p class="outro">Hi, {{$userAtual[0]['PrimeiroNome']}}!</p>
-                            <a href="{{ url('/homeInteressado') }}">Home</a>
-                            <a href="{{ url('/interessadoProfile/2') }}">Profile</a>
+                            <a href="{{ url('/home') }}">Home</a>
+                            <a href="{{ url('/inquilinoProfile/1') }}">Profile</a>
                             <a href="{{ url('/chat') }}">Messages</a>
-                            <a href="{{ url('/walletInteressado/2') }}">Wallet</a>
-                            <a href="{{ url('/findPropriedadeInteressado/2') }}">Search</a>
+                            <a href="{{ url('/wallet/2') }}">Wallet</a>
+                            <a href="{{ url('/payment/'.$userAtual[0]['IdUser']) }}">Pagamentos</a>
                             <a href="#">Sign Out</a>
                             </div>
                         </div>
-                        <div class="button">
-                        <button><span>Click Me</span></button>
-                        </div>
+
                         <script>
                         /* When the user clicks on the button, 
                         toggle between hiding and showing the dropdown content */
@@ -246,51 +141,30 @@
                             }
                             }
                         }
-                        
                         </script>        
             </ul>
         </div>
         </div>
     </nav>
-    <script>
-        
-            $('button').click(function(){
-                $('.pop-up').addClass('open');
-            });
+    
+    <!-- END Nav bar -->
+    <div id="abc">
+        <!-- Popup Div Starts Here -->
+        <div id="popupContact">
 
-            $('.pop-up .close').click(function(){
-                $('.pop-up').removeClass('open');
-            });
-        
-    </script>
+                <div class="p-2" id="smart-button-container">
+                    <img id="close" src="/img/closeButton.png" onclick ="div_hide()">
+                    <div style="text-align: center"><h3>Description</h3><input type="text" name="descriptionInput" id="description" maxlength="127" placeholder="Description" value=""></div>
+                    <p id="descriptionError" style="visibility: hidden; color:red; text-align: center;">Please enter a description</p>
+                    <div style="text-align: center"><h3>Amount</h3><input name="amountInput" type="number" id="amount" value="" placeholder="100€"><span></span></div>
+                    <p id="priceLabelError" style="visibility: hidden; color:red; text-align: center;">Please enter a price</p>
+                    <div id="invoiceidDiv" style="text-align: center; display: none;"><label for="invoiceid"> </label><input name="invoiceid" maxlength="127" type="text" id="invoiceid" value="" ></div>
+                    <p id="invoiceidError" style="visibility: hidden; color:red; text-align: center;">Please enter an Invoice ID</p>
+                    <div style="text-align: center; margin-top: 0.625rem;" id="paypal-button-container"></div>
+                </div>
 
-    <div class="pop-up">
-        <div class="content">
-            <div class="container">
-            <div class="dots">
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-            </div>
-            
-            <span class="close">close</span>
-            
-            <div class="title">
-                <h1>subscribe</h1>
-            </div>
-            
-            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/256492/cXsiNryL.png" alt="Car">
-            
-            <div class="subscribe">
-                <h1>Subscribe to get the latest <span>news &amp; updates</span>.</h1>
-            
-                <form>
-                <input type="email" placeholder="Your email address">
-                <input type="submit" value="Subscribe">
-                </form>
-            </div>
-            </div>
         </div>
+            <!-- Popup Div Ends Here -->
     </div>
 
     <!-- Profile -->
@@ -302,7 +176,7 @@
           <img class="m-3" src="img/logo/UniRent-V2.png" alt="" width="100">
                 </div>-->
                 <!-- Cartão do gajo-->
-                <div class="col-3 pt-2">
+                <div class="col-3 pt-2" id="divImageProfile">
                     <div class="single_advisor_profile wow fadeInUp" data-wow-delay="0.2s"
                         style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
                         <!-- Team Thumb-->
@@ -820,7 +694,7 @@
                                                         "<td>{{ $arrendamento['MesContrato']}}</td>" +
                                                         "<td>{{ $rentInfo[0]['Preco'] }}€</td>" +
                                                         "<td>{{ $arrendamento['IdInquilino']}}</td>" +
-                                                        "<td><button type='button' class='btn btn-primary btn-sm' onclick='div_show();'>Pagar</button></td></table>"                        
+                                                        "<td><a href='/payment/{{$userAtual[0]['IdUser']}}'><button type='button' class='btn btn-primary btn-sm' >Pagar</button></a></td></table>"                        
                                                         </script>
                                                     
                                                     
@@ -844,7 +718,13 @@
                                         });
                                         }
 
+                                        $('button').click(function(){
+                                            $('.pop-up').addClass('open');
+                                        });
 
+                                        $('.pop-up .close').click(function(){
+                                            $('.pop-up').removeClass('open');
+                                        });
                                     </script>
 
                                 </div>

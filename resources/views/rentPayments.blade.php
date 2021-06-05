@@ -17,36 +17,120 @@
 
 <body>
   <nav class="navbar fixed-top navbar-expand-lg navbar-dark p-md-3">
-    <div class="container">
-      <a class="navbar-brand" href="#">
-        <img src="img/logo/UniRent-V2.png" alt="" width="100">
-      </a>
-      <button class="navbar-toggler bg-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <div class="mx-auto"></div>
-        <ul class="navbar-nav">
-        <li class="nav-item">
-            <a class="nav-link text-black text-end" href="{{ url('home') }}">Home</a>
-                        <li class="nav-item">
-                    <a class="nav-link text-black text-end" href="{{ url('http://myunirent.pt/home') }}">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-black text-end" href="{{ url('http://myunirent.pt/inquilinoProfile/1') }}">Profile</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-black text-end" href="{{ url('http://myunirent.pt/wallet/1') }}">Wallet</a>
-                </li>
-		        <li class="nav-item">
-                    <a class="nav-link text-black text-end" href="{{ url('http://myunirent.pt/payment') }}">Payments</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-black text-end" href="{{ url('http://myunirent.pt/') }}">Sign Out</a>
-                </li>
-        </ul>
-      </div>
-    </div>
+  <div class="container">
+        <a class="navbar-brand" href="/senhorio/home">
+            <img src="/img/logo/UniRent-V2.png" alt="" width="100">
+        </a>
+        <button class="navbar-toggler bg-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="mx-auto"></div>
+            <ul class="navbar-nav">
+
+                        <style>
+                        .dropbtn {
+                            
+                            background: url('/img/blankProfileImg.png') no-repeat;
+                            background-size: 50px 50px;
+                            color: white;
+                            font-size: 16px;
+                            border: none;
+                            cursor: pointer;
+                            border-radius: 50%;
+                            padding: 25px 25px;
+                            
+                        }
+
+                        .dropbtn:hover, .dropbtn:focus {
+                            background-color: #2980B9;
+                        }
+
+                        .dropdown {
+                            position: relative;
+                            
+                            display: inline-block;
+                        }
+
+                        .dropdown-content {
+                            right: 0px;
+                            top: 55px;
+                            display: none;
+                            position: absolute;
+                            background-color: #f1f1f1;
+                            min-width: 160px;
+                            overflow: auto;
+                            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                            z-index: 1;
+                        }
+
+                        .dropdown-content a {
+                            color: black;
+                            padding: 12px 16px;
+                            text-decoration: none;
+                            display: block;
+                        }
+
+                        .outro {
+                            color: black;
+                            padding: 12px 16px;
+                            text-decoration: none;
+                            display: block;
+                            border-bottom: 1px outset rgba(0,0,0,0.2);
+                            text-align: right;
+                            margin: 0px;
+                        }
+
+                        
+
+                        .dropdown a:hover {background-color: #ddd;}
+
+                        .show {display: block;}
+
+                        div#popupContact {
+ 
+                            margin-top: 10%;
+                            margin-left: 10%;
+                        }
+                        </style>
+
+                        <div class="dropdown">
+                            <button onclick="myFunction()" class="dropbtn"></button>
+                            <div id="myDropdown" class="dropdown-content">
+                            <p class="outro">Hi, {{$data[0]['PrimeiroNome']}}!</p>
+                            <a href="{{ url('/home') }}">Home</a>
+                            <a href="{{ url('/inquilinoProfile/2') }}">Profile</a>
+                            <a href="{{ url('/chat') }}">Messages</a>
+                            <a href="{{ url('/wallet/2') }}">Wallet</a>
+                            <a href="{{ url('/payment/'.$data[0]['IdUser']) }}">Pagamentos</a>
+                            <a href="#">Sign Out</a>
+                            </div>
+                        </div>
+
+                        <script>
+                        /* When the user clicks on the button, 
+                        toggle between hiding and showing the dropdown content */
+                        function myFunction() {
+                            document.getElementById("myDropdown").classList.toggle("show");
+                        }
+
+                        // Close the dropdown if the user clicks outside of it
+                        window.onclick = function(event) {
+                            if (!event.target.matches('.dropbtn')) {
+                            var dropdowns = document.getElementsByClassName("dropdown-content");
+                            var i;
+                            for (i = 0; i < dropdowns.length; i++) {
+                                var openDropdown = dropdowns[i];
+                                if (openDropdown.classList.contains('show')) {
+                                openDropdown.classList.remove('show');
+                                }
+                            }
+                            }
+                        }
+                        </script>        
+            </ul>
+        </div>
+        </div>
   </nav>
   <!-- END Nav bar -->
   
@@ -56,35 +140,24 @@
       <h1 class="m-5 font-effect__blue">Payments</h1>    
 
       <div class="payment p-2" style="border-radius: 10px">
-            <h2 class="font-effect__blue" style="text-transform: uppercase; position: relative; top: 20px;">Pay Invoice</h2>
             
               <div class="form_content">
-              <label class="p-2 font-effect__blue" style="position: relative; top: 30px;">Payment amount</label>
-              <h5 style="position: relative; top: 35px; left: 20px;">$</h5>
-              <input type="number" class="formAmountInput" value="Amount" id="AmountPay" name="AmountPay"> <br>
+              <form action="{{url('/pay/') }} " method="POST">
+                <label class="p-2 font-effect__blue" style="position: relative; top: 30px;">Payment amount</label>
+                <h5 style="position: relative; top: 35px; left: 20px;">€</h5>
+                <input type="number" class="formAmountInput" id="AmountPay" name="AmountPay"> <br>
+    
+                <label class="p-2 font-effect__blue" >Contribuinte</label> <br>
+                <input type="text" class="formInput" id="contriPay" value="{{$data[0]['NIF']}}" readonly="readonly" name="NIF"> <br>
+                
+                <label class="p-2 font-effect__blue">Email</label><br>
+                <input type="text" class="formInput" id="mailPay" value="{{$data[0]['Email']}}" readonly="readonly" > <br>
 
-              <!--<label>Name</label> <br>
-              <input type="text" class="formInput"> <br>-->
-
-<<<<<<< Updated upstream
-              <label>Contribuinte</label> <br>
-              <input type="text" class="formInput" id="contriPay" maxlength="9" minlength="9"> <br>
-              
-              <label>Email</label><br>
-              <input type="email" class="formInput" id="mailPay"> <br>
-=======
-              <label class="p-2 font-effect__blue" >Contribuinte</label> <br>
-              <input type="text" class="formInput" id="contriPay"> <br>
-              
-              <label class="p-2 font-effect__blue">Email</label><br>
-              <input type="text" class="formInput" id="mailPay"> <br>
-
-              <label class="p-2 font-effect__blue">Data</label><br>
-              <input type="date" class="formInput" id="datePay"> <br>
->>>>>>> Stashed changes
-            </div>
-            <button class="mt-5 btn btn-outline-primary"> Pay Amount </button>
-          
+                <label class="p-2 font-effect__blue">Data</label><br>
+                <input type="date" class="formInput" id="datePay" value="<?php echo date('Y-m-d'); ?>" name="Date"> <br>
+              </div>
+              <button type="submit" class="mt-5 btn btn-outline-primary" id="formbttn"> Pay Amount </button>
+            </form>
           
       </div>
     </div>
@@ -94,16 +167,17 @@
 
   <script>
 $(document).ready(function(){
-  $(".formbttn").on("click", function(){
+  $("#formbttn").on("click", function(){
     alert("Make the payment.");
+    
     var amountPay = $( "#AmountPay" ).val();
     var contriPay = $( "#contriPay" ).val();
     var mailPay = $( "#mailPay" ).val();
     var datePay = $( "#datePay" ).val();
-    var datastr = [amountPay,contriPay,mailPay,datePay];
+    var datastr = [contriPay,amountPay,mailPay,datePay];
     $.ajax({
       type: "POST",
-      url: "http://myunirent.pt/pay", // need to create this post route
+      url: "/pay", // need to create this post route
       data: {
         IdInquilino: 1,
         IdSenhorio: 2,
@@ -113,7 +187,7 @@ $(document).ready(function(){
       },
       cache: false,
       success: function (data) {
-        window.location = "http://myunirent.pt/inquilinoProfile/1";  //Mudar para entrar no user atual
+        // window.location = "inquilinoProfile/1";  //Mudar para entrar no user atual
       }
   })
   });

@@ -225,28 +225,31 @@ class InquilinoController extends Controller
     }
 
     //Apresenta a pagina dos pagamentos
-    public function showPaymentPage()
+    public function showPaymentPage(Request $request, $id)
     {
-
-        return view('rentPayments');
+        $data = Utilizador::where("IdUser",$id)->get();
+        $dataNow=Carbon::now();
+        return view('rentPayments', compact('data','dataNow'));
     }
 
     //Faz pagamentos
     public function makePayment(Request $request)
     {
+        
+
         $user = new Pagamento();
         //$user->IdPagamento=1;
         $user->IdInquilino=1;
         $user->IdSenhorio=2;
-        $user->Valor=$request->Valor;
-        $user->Data=$request->Data;
-        $user->Contribuinte=$request->Contribuinte;
+        $user->Valor=$request->input('AmountPay');
+        $user->Data=$request->input('Date');
+        $user->Contribuinte=$request->input('NIF');
         $user->save();
         // $data = array('IdPagamento' =>1,'IdInquilino' => 1, 'IdSenhorio' => 2, 'Valor' => 400, 'Data' => '2021-04-05 20:26:02', 'Contribuinte' => "222222222");
         // Pagamento::create($data);  
 
 
-        return response()->json("va1");
+        return redirect('home');
 
     }
     

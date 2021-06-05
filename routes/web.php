@@ -49,7 +49,7 @@ Route::group(['prefix' => ''], function () {
 
   Route::get('wallet/{id}', 'InquilinoController@showWallet');
 
-  Route::get('payment', 'InquilinoController@showPaymentPage');
+  Route::get('payment/{id}', 'InquilinoController@showPaymentPage');
 
   Route::post('/edit/{id}', 'InquilinoController@updateInquilino');
 

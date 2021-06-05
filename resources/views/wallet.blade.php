@@ -23,36 +23,120 @@
 
 <body>
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark p-md-3">
-    <div class="container">
-      <a class="navbar-brand" href="#">
-        <img src="/img/logo/UniRent-V2.png" alt="" width="100">
-      </a>
-      <button class="navbar-toggler bg-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <div class="mx-auto"></div>
-        <ul class="navbar-nav">
-        <li class="nav-item">
-                        <a class="nav-link text-black text-end" href="{{ url('home') }}">Home</a>
-                        <li class="nav-item">
-                    <a class="nav-link text-black text-end" href="{{ url('http://myunirent.pt/home') }}">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-black text-end" href="{{ url('http://myunirent.pt/inquilinoProfile/1') }}">Profile</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-black text-end" href="{{ url('http://myunirent.pt/wallet/1') }}">Wallet</a>
-                </li>
-		        <li class="nav-item">
-                    <a class="nav-link text-black text-end" href="{{ url('http://myunirent.pt/payment') }}">Payments</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-black text-end" href="{{ url('http://myunirent.pt/') }}">Sign Out</a>
-                </li>
-        </ul>
-      </div>
-    </div>
+<div class="container">
+        <a class="navbar-brand" href="/senhorio/home">
+            <img src="/img/logo/UniRent-V2.png" alt="" width="100">
+        </a>
+        <button class="navbar-toggler bg-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="mx-auto"></div>
+            <ul class="navbar-nav">
+
+                        <style>
+                        .dropbtn {
+                            
+                            background: url('/img/blankProfileImg.png') no-repeat;
+                            background-size: 50px 50px;
+                            color: white;
+                            font-size: 16px;
+                            border: none;
+                            cursor: pointer;
+                            border-radius: 50%;
+                            padding: 25px 25px;
+                            
+                        }
+
+                        .dropbtn:hover, .dropbtn:focus {
+                            background-color: #2980B9;
+                        }
+
+                        .dropdown {
+                            position: relative;
+                            
+                            display: inline-block;
+                        }
+
+                        .dropdown-content {
+                            right: 0px;
+                            top: 55px;
+                            display: none;
+                            position: absolute;
+                            background-color: #f1f1f1;
+                            min-width: 160px;
+                            overflow: auto;
+                            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                            z-index: 1;
+                        }
+
+                        .dropdown-content a {
+                            color: black;
+                            padding: 12px 16px;
+                            text-decoration: none;
+                            display: block;
+                        }
+
+                        .outro {
+                            color: black;
+                            padding: 12px 16px;
+                            text-decoration: none;
+                            display: block;
+                            border-bottom: 1px outset rgba(0,0,0,0.2);
+                            text-align: right;
+                            margin: 0px;
+                        }
+
+                        
+
+                        .dropdown a:hover {background-color: #ddd;}
+
+                        .show {display: block;}
+
+                        div#popupContact {
+ 
+                            margin-top: 10%;
+                            margin-left: 10%;
+                        }
+                        </style>
+
+                        <div class="dropdown">
+                            <button onclick="myFunction()" class="dropbtn"></button>
+                            <div id="myDropdown" class="dropdown-content">
+                            <p class="outro">Hi, {{$data[0]['PrimeiroNome']}}!</p>
+                            <a href="{{ url('/home') }}">Home</a>
+                            <a href="{{ url('/inquilinoProfile/2') }}">Profile</a>
+                            <a href="{{ url('/chat') }}">Messages</a>
+                            <a href="{{ url('/wallet/2') }}">Wallet</a>
+                            <a href="{{ url('/payment/'.$data[0]['IdUser']) }}">Pagamentos</a>
+                            <a href="#">Sign Out</a>
+                            </div>
+                        </div>
+
+                        <script>
+                        /* When the user clicks on the button, 
+                        toggle between hiding and showing the dropdown content */
+                        function myFunction() {
+                            document.getElementById("myDropdown").classList.toggle("show");
+                        }
+
+                        // Close the dropdown if the user clicks outside of it
+                        window.onclick = function(event) {
+                            if (!event.target.matches('.dropbtn')) {
+                            var dropdowns = document.getElementsByClassName("dropdown-content");
+                            var i;
+                            for (i = 0; i < dropdowns.length; i++) {
+                                var openDropdown = dropdowns[i];
+                                if (openDropdown.classList.contains('show')) {
+                                openDropdown.classList.remove('show');
+                                }
+                            }
+                            }
+                        }
+                        </script>        
+            </ul>
+        </div>
+        </div>
   </nav>
 
     <!-- Profile -->
