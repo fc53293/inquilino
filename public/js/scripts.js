@@ -27,6 +27,14 @@ function check_empty() {
     document.getElementById('abc2').style.display = "none";
     }
 
+    function hideProfile(){
+      document.getElementById('profileTudo').style.display = "none";
+    }
+
+    function div_showPaypal() {
+      document.getElementById('abcPaypal').style.display = "block";
+    }
+
     $(document).ready(function(){
 
        

@@ -1,0 +1,42 @@
+                @if ($rentCheck == True)
+                <script>
+                    //alert("O seu alugyer expirou");
+                    $(document).ready(function(){
+                        $('#divExpiradoRenovar').append('<h3 id="seExpirado"><strong>ALUGUER EXPIRADO</strong></h3>');
+                        
+                        $('#divExpiradoRenovar').append('<input class="m-1" type="checkbox" id="vehicle2" name="renovarMeses1" value="6">');
+                        $('#divExpiradoRenovar').append('<label for="vehicle2" classe="labelMeses">6 Meses</label><br>');
+
+                        $('#divExpiradoRenovar').append('<button type="button" class="mt-3 btn btn-primary" id="btnRenovar">Renovar</button>');
+                        $('#seExpirado').css('color', 'red');
+                   
+
+                    $('#btnRenovar').on('click',function(e) {
+                                e.preventDefault();
+                                req = $.ajax({
+                                    type: 'POST',
+                                    cache: false,
+                                    dataType: 'JSON',
+                                    url: "{{url('http://myunirent.pt/renovar/'.$user['IdUser']) }}",
+                                    data: $(this).serialize(),
+                                    success: function(data) {
+                                        console.log(data);
+                                    }
+                                });
+                                
+                                req.done(function(){
+                                    //alert("chega aqui");
+                                    $('.card').fadeOut(1000).fadeIn(1000);
+                                    setTimeout(function(){
+                                        $( "#seExpirado" ).remove();
+                                        $( "#btnRenovar" ).remove();
+                                        $( "#vehicle2" ).remove();
+                                        $('#divExpiradoRenovar').remove();
+                                        
+                                    }, 1000);
+            
+                                });
+                    });
+                });
+                </script>
+                @endif

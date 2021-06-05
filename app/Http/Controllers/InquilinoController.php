@@ -12,6 +12,7 @@ use App\Models\Likes;
 use App\Models\Rating;
 use App\Models\Propriedade;
 use App\Models\HistoricoSaldo;
+use App\Models\Arrendamento;
 use App\routes\web;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -80,28 +81,87 @@ class InquilinoController extends Controller
     //Updates Inqilino
     public function updateInquilino(Request $req, $id)
     {
-  
-        return response()->json("resposta");
+        $data = Utilizador::find($id);
+        $data->Username=$req->input('nomeUser');
+        $data->PrimeiroNome=$req->input('primeiroNome');
+        $data->UltimoNome=$req->input('ultimoNome');
+        $data->Email=$req->input('mail');
+        $data->Morada=$req->input('morada');
+        $data->Nascimento=$req->input('dateNascimento');
+        
+        
+        //Limpamos eventuais espaços a mais
+        $nif=trim($req->input('NIF'));
+        $ignoreFirst=true;
+        //Verificamos se é numérico e tem comprimento 9
+        if (!is_numeric($nif) || strlen($nif)!=9) {
+            return response()->json('NIF Invalido');
+            $validadeNIF = False;
+        } else {
+            $nifSplit=str_split($nif);
+            //O primeiro digíto tem de ser 1, 2, 3, 5, 6, 8 ou 9
+            //Ou não, se optarmos por ignorar esta "regra"
+            if (
+                in_array($nifSplit[0], array(1, 2, 3, 5, 6, 8, 9))
+                ||
+                $ignoreFirst
+            ) {
+                //Calculamos o dígito de controlo
+                $checkDigit=0;
+                for($i=0; $i<8; $i++) {
+                    $checkDigit+=$nifSplit[$i]*(10-$i-1);
+                }
+                $checkDigit=11-($checkDigit % 11);
+                //Se der 10 então o dígito de controlo tem de ser 0
+                if($checkDigit>=10) $checkDigit=0;
+                //Comparamos com o último dígito
+                if ($checkDigit==$nifSplit[8]) {
+                    $data->NIF=$req->input('NIF');
+                    $validadeNIF = True;
+                } else {
+                    return response()->json('NIF Invalido');
+                    $validadeNIF = False;
+                }
+            } else {
+                return response()->json('NIF Invalido');
+                $validadeNIF = False;
+            }
+        }
+
+        $data->Nacionalidade=$req->input('Nacionalidade');
+        $data->Telefone=$req->input('Telefone');
+        $data->save();
+        
+        return compact('validadeNIF');
     }
 
     //Vai buscar os dados para o perfil do Inqilino
     public function inquilinoProfile(Request $request , $id)
     {
         //$request->session()->put('key', 'value');
-
-        $user = Utilizador::where('IdUser',$id)->get();
+        $data = Carbon::now();
+        $userAtual = Utilizador::where('IdUser',$id)->get();
 
         $rentInfo = Inquilino::join('Propriedades', 'Propriedades.IdPropriedade', '=', 'Inquilino.IdPropriedade')
             ->where('Inquilino.IdUser', '=',$id)
-            ->select('Inquilino.IdInquilino', 'Inquilino.Username', 'Inquilino.IdPropriedade', 'Propriedades.TipoPropriedade', 'Propriedades.Localizacao','Propriedades.AreaMetros','Propriedades.Latitude','Propriedades.Longitude')
+            ->select('Inquilino.IdInquilino', 'Inquilino.Username', 'Inquilino.IdPropriedade', 'Propriedades.TipoPropriedade', 'Propriedades.Localizacao','Propriedades.AreaMetros','Propriedades.Latitude','Propriedades.Longitude','Propriedades.Preco')
             ->get();
 
+        $rentInfo2 = Inquilino::join('Propriedades', 'Propriedades.IdPropriedade', '=', 'Inquilino.IdPropriedade')
+            ->where('Inquilino.IdUser', '=',$id)
+            ->select('Inquilino.IdInquilino', 'Inquilino.Username', 'Inquilino.IdPropriedade', 'Propriedades.IdPropriedade','Propriedades.TipoPropriedade', 'Propriedades.Localizacao','Propriedades.AreaMetros','Propriedades.Latitude','Propriedades.Longitude')
+            ->value('Propriedades.IdPropriedade');
+
+
+        $arrendamentos = Arrendamento::where('IdPropriedade', $rentInfo2)->get();
+        //dd($rentInfo2);
         $rentDateInfo = Inquilino::where('IdUser',$id)->value('FimContrato');
-        
-        $result = Carbon::createFromFormat('Y-m-d H:i:s', $rentDateInfo)->isPast();
+        $dataFimRent = Arrendamento::where('IdInquilino',$id)->orderBy('MesContrato', 'desc')->first()->value('MesContrato');
+        //$rentCheck  = Carbon::createFromFormat('Y-m-d H:i:s', $rentDateInfo)->isPast();
         //dd($result);
-        
-        return view('profile_user',['data'=>$user,'rent'=>$rentInfo,'rentCheck'=>$result]);
+        $pagamentos = Pagamento::all();
+
+        return view('profile_user',compact('userAtual','rentInfo','data','arrendamentos','dataFimRent','pagamentos'));
     }
 
     public function renovarAluguer(Request $req, $id)
