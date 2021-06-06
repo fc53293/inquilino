@@ -64,6 +64,22 @@ Route::group(['prefix' => ''], function () {
   Route::post('storeImg', 'InquilinoController@storeProfileImg');
 
   Route::post('renovar/{idUser}/{idProp}', 'InquilinoController@renovaArrendamento');
+
+  Route::post('/notifications/{id}', 'InquilinoController@markNotificationRead');
+
+  Route::get('/notifications/{id}', 'InquilinoController@getNotifications');
+
+  Route::get('/chat', 'InquilinoController@chat');
+
+  Route::get('/chat/searchUser/{name}', 'InquilinoController@searchUserChat');
+
+  Route::post('/chat/message/', 'InquilinoController@postChatMessage');
+
+  Route::get('/chat/messages/{sender}', 'InquilinoController@getAllMessages');
+
+  Route::get('/chat/messages/{sender}/{receiver}', 'InquilinoController@getMessages');
+
+  Route::get('/user/{id}', 'InquilinoController@getUserInfo');
 });
 
 

@@ -10,9 +10,11 @@ use App\Models\Utilizador;
 use App\Models\Pagamento;
 use App\Models\Likes;
 use App\Models\Rating;
+use App\Models\Messages;
 use App\Models\Propriedade;
 use App\Models\HistoricoSaldo;
 use App\Models\Arrendamento;
+use App\Models\Notifications;
 use App\routes\web;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -256,7 +258,7 @@ class InquilinoController extends Controller
     public function makePayment(Request $request)
     {
         
-
+        $userId = $request->input('idUser');
         $user = new Pagamento();
         //$user->IdPagamento=1;
         $user->IdArrendamento=$request->input('idRent');
@@ -267,7 +269,7 @@ class InquilinoController extends Controller
         // Pagamento::create($data);  
 
 
-        return redirect('home');
+        return redirect('inquilinoProfile/'.$userId);
 
     }
     
@@ -275,7 +277,7 @@ class InquilinoController extends Controller
     //Vai para a home page
     public function goHome()
     {
-        //$user = Utilizador::where('Username','=' ,$username)->get();
+        //$user = Utilizador::where('IdUser' ,$idUser)->get();
 
         return view('home');
     }
@@ -385,6 +387,62 @@ class InquilinoController extends Controller
         //return response()->json($dataLike);
         return view('find_propriedade',compact('proprerties','dataLike'));
     }
+
+    public function markNotificationRead($id)
+    {
+        $notification = Notifications::find($id)->update(['seen' => 1]);;
+        return response()->json(['res'=>$notification]);
+    }
+
+    public function getNotifications($id)
+    {
+        $notifications = Notifications::where('userId', $id)->get();
+        return response()->json([$notifications]);
+    }
+
+    public function chat(){
+        $id = '1';
+        $user = Utilizador::find($id);
+        return view('chat',['user'=>$user]);
+    }
+
+    public function searchUserChat($name){
+       $users = Utilizador::where('UserName','LIKE',"%".$name."%")->orWhere('PrimeiroNome','LIKE',"%".$name."%")->orWhere('UltimoNome','LIKE',"%".$name."%")->get();
+       return response()->json($users);
+    }
+
+    public function getMessages($sender, $receiver){
+        $messages = Messages::where('sender','=',$sender)->where('receiver','=',$receiver)->
+        orWhere('receiver','=',$sender)->where('sender','=',$receiver)->orderBy('id', 'ASC')->get();
+        return response()->json($messages);
+    }
+
+    public function getAllMessages($sender){
+        $messages = Messages::where('sender','=',$sender)
+        ->orWhere('receiver','=',$sender)
+        ->orderBy('id', 'DESC')
+        ->get();
+        return response()->json($messages);
+        //
+    }
+
+    public function postChatMessage(Request $req){
+        //dd($req->input('sender'), $req->input('receiver'), $req->input('message'));
+        $message = new Messages;
+        $message->sender=$req->input('sender');
+        $message->receiver=$req->input('receiver');
+        $message->message=$req->input('message');
+        $message->time=Carbon::now();
+        $message->save();
+        return response()->json($message);
+    }
+
+    public function getUserInfo($id){
+        $data = Utilizador::find($id);
+        return response()->json($data);
+        //
+    }
+
 }
 
 
