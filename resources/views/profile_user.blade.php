@@ -696,16 +696,20 @@
                                                         @if (count($pagamentos) > 0)
                                                             
                                                             @foreach ($pagamentos as $pagamento)
-                                                                @if ($pagamento['IdArrendamento'] == $arrendamento['IdArrendamento'] && $pagamento['Valor'] == $rentData['Preco'])
+                                                                @if ($pagamento['IdArrendamento'] == $arrendamento['IdArrendamento'] && $totalPago == $rentData['Preco'])
                                                                 
                                                                 "<td><a href='/payment/{{$userAtual[0]['IdUser']}}/rentNumber/{{ $arrendamento['IdArrendamento']}}'><button type='button' class='btn btn-success btn-sm' >Pago</button></a></td></table>"                                         
 
                                                                 @endif
-                                                                @if ($pagamento['IdArrendamento'] == $arrendamento['IdArrendamento'] && $pagamento['Valor'] != $rentData['Preco'])
+    
+                                                            @endforeach
+                                                            @foreach ($pagamentos as $pagamento)
+                                                                @if ($pagamento['IdArrendamento'] == $arrendamento['IdArrendamento'] && $totalPago != $rentData['Preco'])
                                                                 
                                                                 "<td><a href='/payment/{{$userAtual[0]['IdUser']}}/rentNumber/{{ $arrendamento['IdArrendamento']}}'><button type='button' class='btn btn-warning btn-sm' >Pagar restante</button></a></td></table>"                                                                                                         
                                                                 @endif
                                                             @endforeach
+
                                                             @foreach ($pagamentos as $pagamento)
                                                                 @if ($pagamento['IdArrendamento'] != $arrendamento['IdArrendamento'])
                                                                 "<td><a href='/payment/{{$userAtual[0]['IdUser']}}/rentNumber/{{ $arrendamento['IdArrendamento']}}'><button type='button' class='btn btn-danger btn-sm' >Pagar</button></a></td></table>"                        
