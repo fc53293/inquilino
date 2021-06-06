@@ -667,8 +667,8 @@
                                                         <tr class="w3-light-grey">
                                                             <th>Propriety ID</th>
                                                             <th>Date of Rental</th>
-                                                            <th>Total Paid</th>
-                                                            <th>Owner</th>
+                                                            <th>Amount to Pay</th>
+                                                            
                                                             <th>Make Payment</th>
                                                 
                                                         </tr>
@@ -692,9 +692,29 @@
                                                         document.getElementById("pagamentosatraso").innerHTML +=
                                                         "<tr><td><a href='/propriedade/{{ $arrendamento['IdPropriedade'] }}'>{{ $arrendamento['IdPropriedade'] }}</a></td>" +
                                                         "<td>{{ $arrendamento['MesContrato']}}</td>" +
-                                                        "<td>{{ $rentInfo[0]['Preco'] }}€</td>" +
-                                                        "<td>{{ $arrendamento['IdInquilino']}}</td>" +
-                                                        "<td><a href='/payment/{{$userAtual[0]['IdUser']}}'><button type='button' class='btn btn-primary btn-sm' >Pagar</button></a></td></table>"                        
+                                                        "<td>{{ $rentInfo[0]['Preco'] - $totalPago}}€</td>"+  
+                                                        @if (count($pagamentos) > 0)
+                                                            
+                                                            @foreach ($pagamentos as $pagamento)
+                                                                @if ($pagamento['IdArrendamento'] == $arrendamento['IdArrendamento'] && $pagamento['Valor'] == $rentData['Preco'])
+                                                                
+                                                                "<td><a href='/payment/{{$userAtual[0]['IdUser']}}/rentNumber/{{ $arrendamento['IdArrendamento']}}'><button type='button' class='btn btn-success btn-sm' >Pago</button></a></td></table>"                                         
+
+                                                                @endif
+                                                                @if ($pagamento['IdArrendamento'] == $arrendamento['IdArrendamento'] && $pagamento['Valor'] != $rentData['Preco'])
+                                                                
+                                                                "<td><a href='/payment/{{$userAtual[0]['IdUser']}}/rentNumber/{{ $arrendamento['IdArrendamento']}}'><button type='button' class='btn btn-warning btn-sm' >Pagar restante</button></a></td></table>"                                                                                                         
+                                                                @endif
+                                                            @endforeach
+                                                            @foreach ($pagamentos as $pagamento)
+                                                                @if ($pagamento['IdArrendamento'] != $arrendamento['IdArrendamento'])
+                                                                "<td><a href='/payment/{{$userAtual[0]['IdUser']}}/rentNumber/{{ $arrendamento['IdArrendamento']}}'><button type='button' class='btn btn-danger btn-sm' >Pagar</button></a></td></table>"                        
+                                                                @endif
+                                                            @endforeach
+                                                        @elseif (count($pagamentos) == 0)
+                                                        "<td><a href='/payment/{{$userAtual[0]['IdUser']}}/rentNumber/{{ $arrendamento['IdArrendamento']}}'><button type='button' class='btn btn-danger btn-sm' >Pagar</button></a></td></table>"                        
+
+                                                        @endif
                                                         </script>
                                                     
                                                     

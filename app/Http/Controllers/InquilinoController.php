@@ -154,12 +154,14 @@ class InquilinoController extends Controller
 
 
         $arrendamentos = Arrendamento::where('IdPropriedade', $rentInfo2)->get();
-        //dd($rentInfo2);
+        
         $rentDateInfo = Inquilino::where('IdUser',$id)->value('FimContrato');
         $dataFimRent = Arrendamento::where('IdInquilino',$id)->orderBy('MesContrato', 'desc')->first()->value('MesContrato');
         //$rentCheck  = Carbon::createFromFormat('Y-m-d H:i:s', $rentDateInfo)->isPast();
         //dd($result);
         $pagamentos = Pagamento::all();
+
+        
 
         return view('profile_user',compact('userAtual','rentInfo','data','arrendamentos','dataFimRent','pagamentos'));
     }
@@ -225,11 +227,11 @@ class InquilinoController extends Controller
     }
 
     //Apresenta a pagina dos pagamentos
-    public function showPaymentPage(Request $request, $id)
+    public function showPaymentPage(Request $request, $id, $idRent)
     {
         $data = Utilizador::where("IdUser",$id)->get();
         $dataNow=Carbon::now();
-        return view('rentPayments', compact('data','dataNow'));
+        return view('rentPayments', compact('data','dataNow','idRent'));
     }
 
     //Faz pagamentos
@@ -239,11 +241,9 @@ class InquilinoController extends Controller
 
         $user = new Pagamento();
         //$user->IdPagamento=1;
-        $user->IdInquilino=1;
-        $user->IdSenhorio=2;
+        $user->IdArrendamento=$request->input('idRent');
         $user->Valor=$request->input('AmountPay');
         $user->Data=$request->input('Date');
-        $user->Contribuinte=$request->input('NIF');
         $user->save();
         // $data = array('IdPagamento' =>1,'IdInquilino' => 1, 'IdSenhorio' => 2, 'Valor' => 400, 'Data' => '2021-04-05 20:26:02', 'Contribuinte' => "222222222");
         // Pagamento::create($data);  

@@ -13,6 +13,7 @@
   <!-- Bootstrap 5 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>  
+  <script src="/JS/scripts.js"></script>
 </head>
 
 <body>
@@ -155,19 +156,45 @@
 
                 <label class="p-2 font-effect__blue">Data</label><br>
                 <input type="date" class="formInput" id="datePay" value="<?php echo date('Y-m-d'); ?>" name="Date"> <br>
+
+                <input type="hidden" class="formInput" value="{{$idRent}}" name="idRent">
               </div>
-              <button type="submit" class="mt-5 btn btn-outline-primary" id="formbttn"> Pay Amount </button>
+              <button type="button" class="mt-5 btn btn-outline-primary" id="formbttn" onclick="div_show();"> Pay With Paypal </button>
+              <button type="submit" class="mt-5 btn btn-outline-primary" id="formbttn" > Pay From Wallet </button>
             </form>
           
       </div>
     </div>
   </div>
+  <div id="abc">
+                    <!-- Popup Div Starts Here -->
+                    <div id="popupContact">
+                        <!-- Contact Us Form -->
+                           
+                            <div class="p-2" id="smart-button-container">
+                                <img id="close" src="/img/closeButton.png" onclick ="div_hide()">
+                                <div style="text-align: center"><h3>Description</h3><input type="text" name="descriptionInput" id="description" maxlength="127" placeholder="Description" value=""></div>
+                                <p id="descriptionError" style="visibility: hidden; color:red; text-align: center;">Please enter a description</p>
+                                <div style="text-align: center"><h3>Amount</h3><input name="amountInput" type="number" id="amount" value="" placeholder="100€"><span></span></div>
+                                <p id="priceLabelError" style="visibility: hidden; color:red; text-align: center;">Please enter a price</p>
+                                <div id="invoiceidDiv" style="text-align: center; display: none;"><label for="invoiceid"> </label><input name="invoiceid" maxlength="127" type="text" id="invoiceid" value="" ></div>
+                                <p id="invoiceidError" style="visibility: hidden; color:red; text-align: center;">Please enter an Invoice ID</p>
+                                <div style="text-align: center; margin-top: 0.625rem;" id="paypal-button-container"></div>
+                            </div>
+                            
+
+                            <!--<a href="javascript:%20check_empty()" id="submit" >Add</a>-->
+                            <!-- <button id="submitWallet" name="sub" type="submit" onclick="return check_empty()" href="javascript:%20check_empty()">Add</button> -->
+                        <!-- </form> -->
+                    </div>
+                        <!-- Popup Div Ends Here -->
+                </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
   <script>
 $(document).ready(function(){
-  $("#formbttn").on("click", function(){
+  $("form").submit( function(){
     alert("Make the payment.");
     
     var amountPay = $( "#AmountPay" ).val();
@@ -195,4 +222,120 @@ $(document).ready(function(){
   
   </script>
   <!-- END Banner -->
+  <script src="https://www.paypal.com/sdk/js?client-id=AYJGD5inw4UzvP97ZAF5D7I0z_oQXv5QXAfwQSGk_UogddNFuZsEZw6NkCD5Kaxz2vfJGZlrCyn4q4JD&currency=EUR" data-sdk-integration-source="button-factory"></script>
+                <script>
+                function initPayPalButton() {
+                    var description = document.querySelector('#smart-button-container #description');
+                    var amount = document.querySelector('#smart-button-container #amount');
+                    var descriptionError = document.querySelector('#smart-button-container #descriptionError');
+                    var priceError = document.querySelector('#smart-button-container #priceLabelError');
+                    var invoiceid = document.querySelector('#smart-button-container #invoiceid');
+                    var invoiceidError = document.querySelector('#smart-button-container #invoiceidError');
+                    var invoiceidDiv = document.querySelector('#smart-button-container #invoiceidDiv');
+
+                    var elArr = [description, amount];
+
+                    if (invoiceidDiv.firstChild.innerHTML.length > 1) {
+                    invoiceidDiv.style.display = "block";
+                    }
+
+                    var purchase_units = [];
+                    purchase_units[0] = {};
+                    purchase_units[0].amount = {};
+
+                    function validate(event) {
+                    return event.value.length > 0;
+                    }
+
+                    paypal.Buttons({
+                    style: {
+                        color: 'gold',
+                        shape: 'rect',
+                        label: 'paypal',
+                        layout: 'vertical',
+                        
+                    },
+
+                    onInit: function (data, actions) {
+                        actions.disable();
+
+                        if(invoiceidDiv.style.display === "block") {
+                        elArr.push(invoiceid);
+                        }
+
+                        elArr.forEach(function (item) {
+                        item.addEventListener('keyup', function (event) {
+                            var result = elArr.every(validate);
+                            if (result) {
+                            actions.enable();
+                            } else {
+                            actions.disable();
+                            }
+                        });
+                        });
+                    },
+
+                    onClick: function () {
+                        if (description.value.length < 1) {
+                        descriptionError.style.visibility = "visible";
+                        } else {
+                        descriptionError.style.visibility = "hidden";
+                        }
+
+                        if (amount.value.length < 1) {
+                        priceError.style.visibility = "visible";
+                        } else {
+                        priceError.style.visibility = "hidden";
+                        }
+
+                        if (invoiceid.value.length < 1 && invoiceidDiv.style.display === "block") {
+                        invoiceidError.style.visibility = "visible";
+                        } else {
+                        invoiceidError.style.visibility = "hidden";
+                        }
+
+                        purchase_units[0].description = description.value;
+                        purchase_units[0].amount.value = amount.value;
+
+                        if(invoiceid.value !== '') {
+                        purchase_units[0].invoice_id = invoiceid.value;
+                        }
+                    },
+
+                    createOrder: function (data, actions) {
+                        return actions.order.create({
+                        purchase_units: purchase_units,
+                        });
+                    },
+
+                    onApprove: function (data, actions) {
+                        return actions.order.capture().then(function (details) {
+                            alert('Transaction completed by ' + details.payer.name.given_name + '!');
+                            let jsonInfos = {"Descricao":details.purchase_units[0].description,"amountToAdd":details.purchase_units[0].amount.value};
+                            console.log(jsonInfos);
+                            var data = new FormData();
+                            data.append( "json", JSON.stringify( jsonInfos ) );
+                            //$.post( '/senhorio/wallet/add', data ); 
+                            return fetch('/walletAddInteressado/2', {
+                                method: 'POST',
+                                headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json'
+                                },                                
+                                body: JSON.stringify( jsonInfos)                                
+                            }).then(function(res) {
+                                if (!res.ok) {
+                                alert('Something went wrong');
+                                }
+                            });
+                        });
+                    },
+
+                    onError: function (err) {
+                        console.log(err);
+                    }
+                    }).render('#paypal-button-container');
+                }
+                initPayPalButton();
+                </script>
 </body>
