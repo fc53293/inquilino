@@ -1,3 +1,9 @@
+<?php
+   
+   session_start();
+   
+?>
+
 <head>
     <!DOCTYPE html>
     <html lang="en">

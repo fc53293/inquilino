@@ -166,22 +166,40 @@ class InquilinoController extends Controller
         return view('profile_user',compact('userAtual','rentInfo','data','arrendamentos','dataFimRent','pagamentos'));
     }
 
-    public function renovarAluguer(Request $req, $id)
-    {
-        $opcaoMeses = $req->input('renovarMeses1');
-        $userLoged = 1;
+    // public function renovarAluguer(Request $req, $id)
+    // {
+    //     $opcaoMeses = $req->input('renovarMeses1');
+    //     $userLoged = 1;
  
-        $rent = Inquilino::where('IdUser', $id)
-        // $rent->FimContrato=Carbon::now()->addMonths(6);
-        // $rent->save();
-       ->update([
-           'FimContrato' => Carbon::now()->addMonthsNoOverflow(6)
-        ]);
-        $rentDateInfo = Inquilino::where('IdUser',$id)->value('FimContrato');
-        $result = Carbon::createFromFormat('Y-m-d H:i:s', $rentDateInfo)->isPast();
-        return response()->json(['rentCheck'=>$result]);
+    //     $rent = Inquilino::where('IdUser', $id)
+    //     // $rent->FimContrato=Carbon::now()->addMonths(6);
+    //     // $rent->save();
+    //    ->update([
+    //        'FimContrato' => Carbon::now()->addMonthsNoOverflow(6)
+    //     ]);
+    //     $rentDateInfo = Inquilino::where('IdUser',$id)->value('FimContrato');
+    //     $result = Carbon::createFromFormat('Y-m-d H:i:s', $rentDateInfo)->isPast();
+    //     return response()->json(['rentCheck'=>$result]);
         
 
+    // }
+
+    public function renovaArrendamento(Request $request, $idProp,$idUser){
+
+        $checkExist = Arrendamento::where('IdPropriedade', $idProp)->where('MesContrato',$request->input('Mes'))->first();
+
+        if ($checkExist === null){
+            $user = new Arrendamento();
+            $user->IdInquilino=$idUser;
+            $user->IdPropriedade=$idProp;
+            $user->MesContrato=$request->input('Mes');
+            $user->save();
+        }else{
+            dd('This property is not available');
+        }
+
+        return compact('user');
+        // return redirect('propertyInfo/'.$idProp.'/user/2');
     }
 
     public function inquilinoAluguerInfo($username){

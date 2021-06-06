@@ -1,3 +1,9 @@
+<?php
+   
+   session_start();
+   $_SESSION['user']=1;
+?>
+
 <head>
     <html lang="en">
     <meta charset="UTF-8">
@@ -37,14 +43,14 @@
                     <a class="nav-link text-black text-end" href="{{ url('/home') }}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-black text-end" href="{{ url('/inquilinoProfile/1') }}">Profile</a>
+                    <a class="nav-link text-black text-end" href="{{ url('/inquilinoProfile/'.$_SESSION['user']) }}">Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-black text-end" href="{{ url('/wallet/1') }}">Wallet</a>
+                    <a class="nav-link text-black text-end" href="{{ url('/wallet/'.$_SESSION['user']) }}">Wallet</a>
                 </li>
-		        <li class="nav-item">
-                    <a class="nav-link text-black text-end" href="{{ url('/payment') }}">Payments</a>
-                </li>
+		        <!-- <li class="nav-item">
+                    <a class="nav-link text-black text-end" href="{{ url('/payment/'.$_SESSION['user'].'/rentNumber/{idRent}') }}">Payments</a>
+                </li> -->
                 <li class="nav-item">
                     <a class="nav-link text-black text-end" href="{{ url('http://myunirent.pt/') }}">Sign Out</a>
                 </li>

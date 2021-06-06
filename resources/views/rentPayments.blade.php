@@ -1,3 +1,9 @@
+<?php
+   
+   session_start();
+   
+?>
+
 <head>
   <!DOCTYPE html>
   <html lang="en">
@@ -95,16 +101,26 @@
                         }
                         </style>
 
-                        <div class="dropdown">
-                            <button onclick="myFunction()" class="dropbtn"></button>
-                            <div id="myDropdown" class="dropdown-content">
-                            <p class="outro">Hi, {{$data[0]['PrimeiroNome']}}!</p>
-                            <a href="{{ url('/home') }}">Home</a>
-                            <a href="{{ url('/inquilinoProfile/2') }}">Profile</a>
-                            <a href="{{ url('/chat') }}">Messages</a>
-                            <a href="{{ url('/wallet/2') }}">Wallet</a>
-                            <a href="{{ url('/payment/'.$data[0]['IdUser']) }}">Pagamentos</a>
-                            <a href="#">Sign Out</a>
+                        <div class="float-child" id="aVoltaDoNome">
+                            <div class="green">
+                                <h5>{{$data[0]['PrimeiroNome']}}</h5>
+                            </div>
+                        </div>
+
+                        <div class="float-child">
+                            <div class="blue">
+                                <div class="dropdown">
+                                    <button onclick="myFunction()" class="dropbtn"></button>
+                                    <div id="myDropdown" class="dropdown-content">
+                                    <p class="outro">Hi, {{$data[0]['PrimeiroNome']}}!</p>
+                                    <a href="{{ url('/home') }}">Home</a>
+                                    <a href="{{ url('/inquilinoProfile/'.$_SESSION['user']) }}">Profile</a>
+                                    <a href="{{ url('/chat') }}">Messages</a>
+                                    <a href="{{ url('/wallet/'.$_SESSION['user']) }}">Wallet</a>
+                                    <!-- <a href="{{ url('/payment/'.$_SESSION['user']) }}">Pagamentos</a> -->
+                                    <a href="#">Sign Out</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 

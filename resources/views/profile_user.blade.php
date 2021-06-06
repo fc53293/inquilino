@@ -1,3 +1,8 @@
+<?php
+   
+   session_start();
+   
+?>
 <head>
     <!DOCTYPE html>
     <html lang="en">
@@ -107,17 +112,26 @@
                             }
                         }
                         </style>
+                        <div class="float-child" id="aVoltaDoNome">
+                            <div class="green">
+                                <h5>{{$userAtual[0]['PrimeiroNome']}}</h5>
+                            </div>
+                        </div>
 
-                        <div class="dropdown">
-                            <button onclick="myFunction()" class="dropbtn"></button>
-                            <div id="myDropdown" class="dropdown-content">
-                            <p class="outro">Hi, {{$userAtual[0]['PrimeiroNome']}}!</p>
-                            <a href="{{ url('/home') }}">Home</a>
-                            <a href="{{ url('/inquilinoProfile/1') }}">Profile</a>
-                            <a href="{{ url('/chat') }}">Messages</a>
-                            <a href="{{ url('/wallet/2') }}">Wallet</a>
-                            <a href="{{ url('/payment/'.$userAtual[0]['IdUser']) }}">Pagamentos</a>
-                            <a href="#">Sign Out</a>
+                        <div class="float-child">
+                            <div class="blue">
+                                <div class="dropdown">
+                                    <button onclick="myFunction()" class="dropbtn"></button>
+                                    <div id="myDropdown" class="dropdown-content">
+                                    <p class="outro">Hi, {{$userAtual[0]['PrimeiroNome']}}!</p>
+                                    <a href="{{ url('/home') }}">Home</a>
+                                    <a href="{{ url('/inquilinoProfile/'.$_SESSION['user']) }}">Profile</a>
+                                    <a href="{{ url('/chat') }}">Messages</a>
+                                    <a href="{{ url('/wallet/'.$_SESSION['user']) }}">Wallet</a>
+                                    <!-- <a href="{{ url('/payment/'.$_SESSION['user']) }}">Pagamentos</a> -->
+                                    <a href="#">Sign Out</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -200,14 +214,6 @@
                         
                     </div>
                 </div>
-
-
-
-
-
-
-
-
 
 
 
@@ -584,6 +590,14 @@
                                     
 
                                     });
+
+                                    
+                                    $("#calendarPeq").click(function() {
+                                        alert("aqui");
+                          
+                                    });
+
+
                             </script>
                             <h2 class="mt-5 p-2 font-effect__blue">Meu Aluguer:</h2>
                             @foreach ($rentInfo as $rentData)
@@ -611,9 +625,7 @@
                                             <h3><strong>Área:</strong> {{ $rentData['AreaMetros'] }} m2</h3>
                                             Fim de Contrato: <i>{{$dataFimRent}}</i>
                                             
-                                            <!-- <div id="divExpiradoRenovar">
-                                            
-                                            </div> -->
+
                                         </div>
 
 
@@ -633,9 +645,9 @@
                                                             <script>
                                                             document.getElementById("boxInfo{{$i}}").innerHTML = 
                                                             "<h3><br>Disponivel<h3>" +
-                                                            "<form action='' name='_method' method='POST'>" +
+                                                            "<form action='/renovar/{{$userAtual[0]['IdUser']}}/{{ $rentData['IdPropriedade'] }}' name='_method' method='POST' >" +
                                                             "<input type='text' name='Mes' value={{ $data->format('m-y') }} hidden>" +
-                                                            "<button type='submit' class='btn btn-primary btn-sm'>Alugar</button></form>"
+                                                            "<button type='submit' class='btn btn-primary btn-sm' id='calendarPeq'>Alugar</button></form>"
                                                             </script>
                                                                 @foreach ($arrendamentos as $arrendamento)
                                                                     @if ($arrendamento['MesContrato']==$data->format('m-y'))
@@ -645,6 +657,17 @@
                                                                     
                                                                     $('[name="' + {{$i}} + '"]').removeClass( "bg-white")
                                                                     $('[name="' + {{$i}} + '"]').css("background-color", "rgb(225, 0, 0,0.3)");
+                                                                    </script>
+                                                                        
+                                                                    @endif
+
+                                                                    @if ($arrendamento['MesContrato']==$data->format('m-y') && $arrendamento['IdInquilino'] == $userAtual[0]['IdUser'])
+                                                                    <script>
+                                                                    document.getElementById("boxInfo{{$i}}").innerHTML =
+                                                                    "<br><h3>Alugado</h3><h3>Inquilino: {{ $arrendamento['IdInquilino']}}</h3>"
+                                                                    
+                                                                    $('[name="' + {{$i}} + '"]').removeClass( "bg-white")
+                                                                    $('[name="' + {{$i}} + '"]').css("background-color", "rgba(3, 255, 0, 0.4)");
                                                                     </script>
                                                                         
                                                                     @endif
@@ -723,12 +746,15 @@
                                                     
                                                     
                                                     @endforeach
+                                                    
                                                     </div>
+                                                    
                                                 </div>
-                                           
+                                                
 
                                         </div>
                                     </div>
+                                    
                                     <script>
                                         function initMap() {
                                         const map = new google.maps.Map(document.getElementById("map"), {
@@ -749,16 +775,19 @@
                                         $('.pop-up .close').click(function(){
                                             $('.pop-up').removeClass('open');
                                         });
+
+                                
                                     </script>
 
                                 </div>
                         @endforeach
                     </div>
+                    
                 </div>
             </div>
         </div>
     </div>
     </div>
-
+    
     <!-- END Profile -->
 </body>
