@@ -257,13 +257,23 @@ class InquilinoController extends Controller
     //Faz pagamentos
     public function makePayment(Request $request)
     {
-        
+        $casaq = Arrendamento::where('IdArrendamento', $request->input('idRent'))->value('IdPropriedade');
+        $senhorio = Propriedade::where('IdPropriedade', $casaq)->value('IdSenhorio');
+
         $userId = $request->input('idUser');
         $user = new Pagamento();
         //$user->IdPagamento=1;
         $user->IdArrendamento=$request->input('idRent');
         $user->Valor=$request->input('AmountPay');
         $user->Data=$request->input('Date');
+        $user->save();
+
+        $user = new Notifications();
+        $user->UserId=$senhorio;
+        $user->type="payment";
+        $user->seen=0;
+        $user->sentBy=$casaq;
+        $user->date=Carbon::now();
         $user->save();
         // $data = array('IdPagamento' =>1,'IdInquilino' => 1, 'IdSenhorio' => 2, 'Valor' => 400, 'Data' => '2021-04-05 20:26:02', 'Contribuinte' => "222222222");
         // Pagamento::create($data);  
@@ -401,7 +411,7 @@ class InquilinoController extends Controller
     }
 
     public function chat(){
-        $id = '1';
+        $id = '5';
         $user = Utilizador::find($id);
         return view('chat',['user'=>$user]);
     }
