@@ -131,10 +131,31 @@ class InquilinoController extends Controller
         }
 
         $data->Nacionalidade=$req->input('Nacionalidade');
-        $data->Telefone=$req->input('Telefone');
+        if (substr(trim($req->input('Telefone')), 0, 2) == '91') {
+            $data->Telefone=$req->input('Telefone');
+            $validadePhone = True;
+        } else {
+            if (substr(trim($req->input('Telefone')), 0, 2) == '92') {
+                $data->Telefone=$req->input('Telefone');
+                $validadePhone = True;
+            } else {
+                if (substr(trim($req->input('Telefone')), 0, 2) == '93') {
+                    $data->Telefone=$req->input('Telefone');
+                    $validadePhone = True;
+                } else {
+                    if (substr(trim($req->input('Telefone')), 0, 2) == '96') {
+                        $data->Telefone=$req->input('Telefone');
+                        $validadePhone = True;
+                    } else {
+                        return response()->json('Phone Number Invalido');
+                        $validadePhone = False;
+                    }
+                }
+            }
+        }
         $data->save();
         
-        return compact('validadeNIF');
+        return compact('validadeNIF','validadePhone');
     }
 
     //Vai buscar os dados para o perfil do Inqilino
@@ -158,7 +179,8 @@ class InquilinoController extends Controller
         $arrendamentos = Arrendamento::where('IdPropriedade', $rentInfo2)->get();
         
         $rentDateInfo = Inquilino::where('IdUser',$id)->value('FimContrato');
-        $dataFimRent = Arrendamento::where('IdInquilino',$id)->orderBy('MesContrato', 'desc')->first()->value('MesContrato');
+        $dataFimRent = Arrendamento::where('IdInquilino',$id)->orderBy('MesContrato', 'desc')->value('MesContrato');
+        
         //$rentCheck  = Carbon::createFromFormat('Y-m-d H:i:s', $rentDateInfo)->isPast();
         //dd($result);
         $pagamentos = Pagamento::all();
