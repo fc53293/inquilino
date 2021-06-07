@@ -25,6 +25,7 @@
         integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
     </script>
     <script src="/JS/scripts.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -66,7 +67,7 @@
                           <p class="outro">Hi, {{$data[0]['Username']}}!</p>
                             <a href="{{ url('/home') }}">Home</a>
                             <a href="{{ url('/inquilinoProfile/'.$_SESSION['user']) }}">Profile</a>
-                            <a href="{{ url('/chat') }}">Messages</a>
+                            <a href="{{ url('/chat') }}">Chat</a>
                             <a href="{{ url('/wallet/'.$_SESSION['user']) }}">Wallet</a>
                             <a href="{{ url('/findPropriedadeInteressado/'.$_SESSION['user']) }}">Search</a>
                           <a href="#">Sign Out</a>
@@ -192,7 +193,7 @@
                 <div class="txn-history">
                     <h2 class="font-effect__blue pb-3">History</h2>
                     @foreach($data2 as $info)
-                        <p class="txn-list mb-3">Payment to UniRent account<span class="{{ $info->Valor >= 0 ? 'credit-amount' : 'debit-amount' }}">{{ $info['Valor'] }} €</span></p>
+                        <p class="txn-list mb-3">{{$info['Descricao']}}<span class="{{ $info->Valor >= 0 ? 'credit-amount' : 'debit-amount' }}">{{ $info['Valor'] }} €</span></p>
 
                     @endforeach
                 </div>
@@ -346,7 +347,7 @@
                             var data = new FormData();
                             data.append( "json", JSON.stringify( jsonInfos ) );
                             //$.post( '/senhorio/wallet/add', data ); 
-                            return fetch('/walletAddInteressado/2', {
+                            return fetch('/walletAddInteressado/'+{{$data[0]['IdUser']}}, {
                                 method: 'POST',
                                 headers: {
                                 'Accept': 'application/json',

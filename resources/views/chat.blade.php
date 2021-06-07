@@ -74,7 +74,7 @@
                             <p class="outro">Hi, {{$user['Username']}}!</p>
                             <a href="{{ url('/home') }}">Home</a>
                             <a href="{{ url('/inquilinoProfile/'.$_SESSION['user']) }}">Profile</a>
-                            <a href="{{ url('/chat') }}">Messages</a>
+                            <a href="{{ url('/chat') }}">Chat</a>
                             <a href="{{ url('/wallet/'.$_SESSION['user']) }}">Wallet</a>
                             <a href="{{ url('/findPropriedadeInteressado/'.$_SESSION['user']) }}">Search</a>
                             <a href="#">Sign Out</a>
