@@ -194,7 +194,6 @@
                 <input type="hidden" class="formInput" value="{{$idRent}}" name="idRent">
                 <input type="hidden" class="formInput" value="{{$data[0]['IdUser']}}" name="idUser">
               </div>
-              <button type="button" class="mt-5 btn btn-outline-primary" id="formbttn" onclick="div_show();"> Pay With Paypal </button>
               <button type="submit" class="mt-5 btn btn-outline-primary" id="formbttn" > Pay From Wallet </button>
             </form>
           

@@ -64,11 +64,11 @@
                         <script>document.getElementById("dropbtn").style.backgroundImage = `url("/img/{{$userAtual[0]['imagem']}}")`</script>
                         <div id="myDropdown" class="dropdown-content">
                           <p class="outro">Hi, {{$userAtual[0]['Username']}}!</p>
-                          <a href="{{ url('/homeInteressado') }}">Home</a>
+                          <a href="{{ url('/home') }}">Home</a>
                         <a href="{{ url('/inquilinoProfile/'.$_SESSION['user']) }}">Profile</a>
                         <a href="{{ url('/chat') }}">Chat</a>
                         <a href="{{ url('/wallet/'.$_SESSION['user']) }}">Wallet</a>
-                        <a href="{{ url('/findPropriedadeInteressado/'.$_SESSION['user']) }}">Search</a>
+                        <!-- <a href="{{ url('/findPropriedadeInteressado/'.$_SESSION['user']) }}">Search</a> -->
                           <a href="#">Sign Out</a>
                         </div>
                       </div>
@@ -217,7 +217,7 @@
                             <h6>{{ $user['PrimeiroNome'] }} {{ $user['UltimoNome'] }}</h6>
                             <p class="designation">{{ $user['TipoConta'] }}</p>
                         </div>
-                        <form class="p-2" action="/storeImg" method="POST" enctype="multipart/form-data">
+                        <form class="p-2" action="{{url('/storeImg/'.$user['IdUser']) }}" method="POST" enctype="multipart/form-data">
                             <label for="formFileLg" class="form-label pt-2 px-1"><h2>Alterar imagem</h2></label>
                             <input class="form-control" id="formFileLg" type="file" name="imgProfile"/>
                             <button type="submit" class="btn btn-primary mt-2">Submit</button>
@@ -285,7 +285,7 @@
                                     <div class="form-group col">
                                         <h2 class="p-2">Data de Nascimento:</h2>
                                         <div class="col-sm-8">
-                                            <input type="date" class="form-control mt-2" id="inputNasci" placeholder="CHANGE ME!" name="dateNascimento" value="{{ $user['Nascimento'] }}" min="1900-01-01" max="{{$data}}">
+                                            <input type="date" class="form-control mt-2" id="inputNasci" placeholder="CHANGE ME!" name="dateNascimento" value="{{ $user['Nascimento'] }}" min="1900-01-01" max="{{$data->format('Y-m-d') }}">
                                         </div>
                                     </div>
                                 </div>
@@ -584,12 +584,19 @@
                                     });
                                     
                                     req.done(function(data){
-                                        //$('#totalAVGrating').fadeOut(500).fadeIn(500);
-                                        
+                                    //$('#totalAVGrating').fadeOut(500).fadeIn(500);
+                                        console.log("-> "+data.validadeNIF);
+                                        if (data != "NIF Invalido"){
                                         $('.form-group').fadeOut(1000).fadeIn(1000);
-                                        // setTimeout(function(){
-                                        //     $('.amount').text(data.res+" €");
-                                        // }, 1000);
+                                        }else{
+                                            alert("NIF Inválido!");
+                                        }
+
+                                        if (data != "Phone Number Invalido"){
+                                        $('.form-group').fadeOut(1000).fadeIn(1000);
+                                        }else{
+                                            alert("Phone Number Inválido!");
+                                        }
                                         
                                         //alert("feito");
                                     });
@@ -598,10 +605,18 @@
                                     });
 
                                     
-                                    $("#calendarPeq").click(function() {
-                                        alert("aqui");
-                          
-                                    });
+                                    
+                                        // var today = new Date();
+                                        // var dateHoje = "0"+((today.getMonth()+1))+'-'+(today.getFullYear().toString().substr(-2));
+                                        // console.log(dateHoje);
+                                        // var compara = {{$dataFimRent}};
+                                        // if ($.datepicker.parseDate('mm-yy', dateHoje) > $.datepicker.parseDate('mm-yy', compara)) {
+
+                                        // alert(dateHoje + 'is later than ' + {{$dataFimRent}});
+
+                                        // }
+                                        
+                                    
 
 
                             </script>

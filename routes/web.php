@@ -61,7 +61,7 @@ Route::group(['prefix' => ''], function () {
 
   Route::post('pay', 'InquilinoController@makePayment');
   
-  Route::post('storeImg', 'InquilinoController@storeProfileImg');
+  Route::post('storeImg/{id}', 'InquilinoController@storeProfileImg');
 
   Route::post('renovar/{idUser}/{idProp}', 'InquilinoController@renovaArrendamento');
 

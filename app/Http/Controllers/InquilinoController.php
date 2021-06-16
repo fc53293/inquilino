@@ -222,7 +222,7 @@ class InquilinoController extends Controller
             dd('This property is not available');
         }
 
-        return compact('user');
+        return redirect('inquilinoProfile/'.$idUser);
         // return redirect('propertyInfo/'.$idProp.'/user/2');
     }
 
@@ -290,13 +290,21 @@ class InquilinoController extends Controller
         $user->Data=$request->input('Date');
         $user->save();
 
-        $user = new Notifications();
-        $user->UserId=$senhorio;
-        $user->type="payment";
-        $user->seen=0;
-        $user->sentBy=$casaq;
-        $user->date=Carbon::now();
+        $user = Utilizador::find($userId);
+        $user->Saldo=$request->input('AmountPay')-$user->Saldo;
         $user->save();
+
+        $user = Utilizador::find($senhorio);
+        $user->Saldo=$request->input('AmountPay')+$user->Saldo;
+        $user->save();
+
+        $not = new Notifications();
+        $not->UserId=$senhorio;
+        $not->type="payment";
+        $not->seen=0;
+        $not->sentBy=$casaq;
+        $not->date=Carbon::now();
+        $not->save();
         // $data = array('IdPagamento' =>1,'IdInquilino' => 1, 'IdSenhorio' => 2, 'Valor' => 400, 'Data' => '2021-04-05 20:26:02', 'Contribuinte' => "222222222");
         // Pagamento::create($data);  
 
@@ -315,7 +323,7 @@ class InquilinoController extends Controller
     }
 
     //Guardar a imagem de perfil
-    public function storeProfileImg(Request $req)
+    public function storeProfileImg(Request $req,$id)
     {
         //Methods we can use on Request
         //guessExtension()
@@ -340,9 +348,11 @@ class InquilinoController extends Controller
 
         $req->imgProfile->move('img',$newImgName);
 
-        $user = Utilizador::find(1);
+        $user = Utilizador::find($id);
         $user->imagem=$newImgName;
         $user->save();
+
+        return redirect('inquilinoProfile/'.$id);
     }
 
     public function propertyInfo($id)
